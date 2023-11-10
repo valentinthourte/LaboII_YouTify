@@ -58,7 +58,9 @@ namespace EjercicioIntegrador2_YouTify
 
         private bool MustChangeControlColor(Type type)
         {
-            return type == typeof(Button) || type == typeof(TextBox);
+            List<Type> unacceptedTypes = new List<Type> { typeof(Button), typeof(TextBox) };
+
+            return !unacceptedTypes.Contains(type);
         }
 
         public async Task<bool> Login()

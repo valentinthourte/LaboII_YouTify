@@ -113,9 +113,9 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             // 
             // lpSpotify
             // 
-            lpSpotify.BackColor = SystemColors.Window;
-            lpSpotify.FontColor = Color.Black;
-            lpSpotify.ForeColor = Color.Black;
+            lpSpotify.BackColor = Color.Transparent;
+            lpSpotify.FontColor = Color.White;
+            lpSpotify.ForeColor = Color.White;
             lpSpotify.ImgIndex = 1;
             lpSpotify.ImgList = ilLogos;
             lpSpotify.Location = new Point(450, 26);
