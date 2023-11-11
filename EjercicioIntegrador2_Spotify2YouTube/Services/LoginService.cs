@@ -1,4 +1,4 @@
-﻿using EjercicioIntegrador2_YouTify;
+﻿using EjercicioIntegrador2_YouTify.Model;
 
 namespace EjercicioIntegrador2_YouTify.Services
 {

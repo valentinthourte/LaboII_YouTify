@@ -1,4 +1,4 @@
-﻿namespace EjercicioIntegrador2_YouTify
+﻿namespace EjercicioIntegrador2_YouTify.Model
 {
     public class Credentials
     {
@@ -10,13 +10,13 @@
 
         public Credentials(string text1, string text2)
         {
-            this.username = text1;
-            this.password = text2;
+            username = text1;
+            password = text2;
         }
 
         internal bool PasswordIsCorrect(string databasePassword)
         {
-            return string.Equals(databasePassword,password);
+            return string.Equals(databasePassword, password);
         }
     }
 }

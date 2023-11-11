@@ -1,5 +1,7 @@
-﻿using EjercicioIntegrador2_Spotify2YouTube;
+﻿using EjercicioIntegrador2_YouTify.Enums;
 using EjercicioIntegrador2_YouTify.Exceptions;
+using EjercicioIntegrador2_YouTify.Helpers;
+using EjercicioIntegrador2_YouTify.Model;
 using System.Data.SqlClient;
 
 namespace EjercicioIntegrador2_YouTify.Repository
@@ -9,34 +11,15 @@ namespace EjercicioIntegrador2_YouTify.Repository
         public static async Task<bool> CanLogin(Credentials credentials, EPlatform platform)
         {
             string tableName = $"{platform}Credentials";
-            bool canLogin = false;
             try
             {
-                using (SqlConnection sql = new SqlConnection(DatabaseConnectionHelper.GetConnectionString()))
+                SqlDataReader dataReader = await DatabaseConnectionHelper.ExecuteSelectQuery(QueryHelper.GetCredentialsQuery(tableName, credentials));
+                string databasePassword = String.Empty;
+                if (dataReader.Read())
                 {
-                    try
-                    {
-                        await sql.OpenAsync();
-                        using (SqlCommand command = new SqlCommand())
-                        {
-                            command.Connection = sql;
-                            command.CommandType = System.Data.CommandType.Text;
-                            command.CommandText = QueryHelper.GetCredentialsQuery(tableName, credentials);
-                            SqlDataReader dataReader = await command.ExecuteReaderAsync();
-                            string databasePassword = String.Empty;
-                            if (dataReader.Read())
-                            {
-                                databasePassword = dataReader["password"].ToString() ?? String.Empty;
-                            }
-                            canLogin = !string.IsNullOrEmpty(databasePassword) && credentials.PasswordIsCorrect(databasePassword);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
-                    }
-                    return canLogin;
+                    databasePassword = dataReader["password"].ToString() ?? String.Empty;
                 }
+                return !string.IsNullOrEmpty(databasePassword) && credentials.PasswordIsCorrect(databasePassword);
             }
             catch (Exception ex)
             {

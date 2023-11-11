@@ -1,4 +1,4 @@
-﻿namespace EjercicioIntegrador2_Spotify2YouTube
+﻿namespace EjercicioIntegrador2_YouTify.Enums
 {
     internal enum EPlatform
     {

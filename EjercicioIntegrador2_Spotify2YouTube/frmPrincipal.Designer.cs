@@ -40,6 +40,7 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             tbIntegracion = new TabPage();
             tbSpotify = new TabPage();
             lpSpotify = new LoginPanel();
+            mainPage1 = new MainPage();
             tcTabs.SuspendLayout();
             tbYoutube.SuspendLayout();
             tbSpotify.SuspendLayout();
@@ -62,6 +63,7 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             // 
             tbYoutube.BackColor = Color.White;
             tbYoutube.Controls.Add(lpYoutube);
+            tbYoutube.Controls.Add(mainPage1);
             tbYoutube.Location = new Point(4, 24);
             tbYoutube.Name = "tbYoutube";
             tbYoutube.Padding = new Padding(3);
@@ -81,6 +83,7 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             lpYoutube.Size = new Size(393, 524);
             lpYoutube.TabIndex = 0;
             lpYoutube.LoginClick += OnYoutubeLogin;
+            lpYoutube.LoginService = new YoutubeLoginService();
             // 
             // ilLogos
             // 
@@ -123,6 +126,14 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             lpSpotify.Size = new Size(393, 524);
             lpSpotify.TabIndex = 0;
             lpSpotify.LoginClick += OnSpotifyLoginClick;
+            lpSpotify.LoginService = new SpotifyLoginService();
+            // 
+            // mainPage1
+            // 
+            mainPage1.Location = new Point(0, 0);
+            mainPage1.Name = "mainPage1";
+            mainPage1.Size = new Size(1288, 620);
+            mainPage1.TabIndex = 1;
             // 
             // frmPrincipal
             // 
@@ -131,7 +142,7 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             ClientSize = new Size(1289, 639);
             Controls.Add(tcTabs);
             Name = "frmPrincipal";
-            Text = "Form1";
+            Text = "YouTify";
             Load += Form1_Load;
             tcTabs.ResumeLayout(false);
             tbYoutube.ResumeLayout(false);
@@ -152,5 +163,6 @@ namespace EjercicioIntegrador2_Spotify2YouTube
         private ImageList ilLogos;
         private LoginPanel lpYoutube;
         private LoginPanel lpSpotify;
+        private MainPage mainPage1;
     }
 }

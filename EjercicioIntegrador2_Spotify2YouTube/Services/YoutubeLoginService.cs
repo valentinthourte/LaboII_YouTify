@@ -1,4 +1,5 @@
-﻿using EjercicioIntegrador2_Spotify2YouTube;
+﻿using EjercicioIntegrador2_YouTify.Enums;
+using EjercicioIntegrador2_YouTify.Model;
 using EjercicioIntegrador2_YouTify.Repository;
 using System;
 using System.Collections.Generic;

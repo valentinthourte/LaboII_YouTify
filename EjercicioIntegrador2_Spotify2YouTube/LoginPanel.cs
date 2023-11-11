@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Linq;
 using EjercicioIntegrador2_YouTify.Services;
+using EjercicioIntegrador2_YouTify.Model;
 
 namespace EjercicioIntegrador2_YouTify
 {
