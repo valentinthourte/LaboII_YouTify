@@ -8,18 +8,22 @@ namespace EjercicioIntegrador2_YouTify.Repository
 {
     internal class CredentialsRepository
     {
-        public static async Task<bool> CanLogin(Credentials credentials, EPlatform platform)
+        public static async Task<User> CanLogin(Credentials credentials, EPlatform platform)
         {
             string tableName = $"{platform}Credentials";
             try
             {
-                SqlDataReader dataReader = await DatabaseConnectionHelper.ExecuteSelectQuery(QueryHelper.GetCredentialsQuery(tableName, credentials));
+                List<Credentials> list = (List<Credentials>)await DatabaseConnectionHelper.ExecuteSelectQuery<Credentials>(QueryHelper.GetCredentialsQuery(tableName, credentials));
                 string databasePassword = String.Empty;
-                if (dataReader.Read())
+                if (list.Count > 0)
                 {
-                    databasePassword = dataReader["password"].ToString() ?? String.Empty;
+                    databasePassword = list.First().Password;
                 }
-                return !string.IsNullOrEmpty(databasePassword) && credentials.PasswordIsCorrect(databasePassword);
+
+
+                User user = (!string.IsNullOrEmpty(databasePassword) && credentials.PasswordIsCorrect(databasePassword)) ? new User(credentials.Username) : null;
+                
+                return user;
             }
             catch (Exception ex)
             {

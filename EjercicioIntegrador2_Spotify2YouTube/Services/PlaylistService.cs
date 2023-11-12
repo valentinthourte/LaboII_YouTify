@@ -5,9 +5,15 @@ namespace EjercicioIntegrador2_YouTify.Services
 {
     internal class PlaylistService
     {
-        internal async static Task<List<Playlist>> GetPlaylists()
+        internal async static Task<List<Playlist>> GetPlaylists(string owner)
         {
-            return await PlaylistRepository.GetPlaylists();
+            return await PlaylistRepository.GetPlaylists(owner);
         }
+
+        internal async static Task<List<Playlist>> GetPlaylistsForUser(User user)
+        {
+            return await PlaylistService.GetPlaylists(user.Name);
+        }
+
     }
 }

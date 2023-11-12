@@ -11,7 +11,7 @@ namespace EjercicioIntegrador2_YouTify.Services
 {
     public class YoutubeLoginService : LoginService
     {
-        internal async override Task<bool> Login(Credentials credentials)
+        internal async override Task<User> Login(Credentials credentials)
         {
             return await CredentialsRepository.CanLogin(credentials, EPlatform.Youtube);
         }

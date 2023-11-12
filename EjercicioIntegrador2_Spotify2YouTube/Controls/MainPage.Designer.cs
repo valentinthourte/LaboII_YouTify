@@ -32,6 +32,7 @@
             ListViewItem listViewItem1 = new ListViewItem("");
             ListViewItem listViewItem2 = new ListViewItem(new string[] { "", "Holaaaaa" }, -1);
             pnlPlaylistList = new Panel();
+            lblNoPlaylists = new Label();
             lvPlaylists = new ListView();
             Playlist = new ColumnHeader();
             ilPlaylistIcons = new ImageList(components);
@@ -40,14 +41,26 @@
             // 
             // pnlPlaylistList
             // 
+            pnlPlaylistList.Controls.Add(lblNoPlaylists);
             pnlPlaylistList.Controls.Add(lvPlaylists);
             pnlPlaylistList.Location = new Point(0, 0);
             pnlPlaylistList.Name = "pnlPlaylistList";
             pnlPlaylistList.Size = new Size(242, 620);
             pnlPlaylistList.TabIndex = 0;
             // 
+            // lblNoPlaylists
+            // 
+            lblNoPlaylists.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblNoPlaylists.Location = new Point(28, 83);
+            lblNoPlaylists.Name = "lblNoPlaylists";
+            lblNoPlaylists.Size = new Size(157, 59);
+            lblNoPlaylists.TabIndex = 1;
+            lblNoPlaylists.Text = "There is nothing to show here yet";
+            lblNoPlaylists.Visible = false;
+            // 
             // lvPlaylists
             // 
+            lvPlaylists.BackColor = SystemColors.Window;
             lvPlaylists.Columns.AddRange(new ColumnHeader[] { Playlist });
             listViewItem1.Checked = true;
             listViewItem1.StateImageIndex = 1;
@@ -82,5 +95,6 @@
         private ListView lvPlaylists;
         private ColumnHeader Playlist;
         private ImageList ilPlaylistIcons;
+        private Label lblNoPlaylists;
     }
 }

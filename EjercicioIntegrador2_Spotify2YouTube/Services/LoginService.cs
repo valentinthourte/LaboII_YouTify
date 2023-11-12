@@ -4,6 +4,6 @@ namespace EjercicioIntegrador2_YouTify.Services
 {
     public abstract class LoginService
     {
-        internal abstract Task<bool> Login(Credentials credentials);
+        internal abstract Task<User> Login(Credentials credentials);
     }
 }

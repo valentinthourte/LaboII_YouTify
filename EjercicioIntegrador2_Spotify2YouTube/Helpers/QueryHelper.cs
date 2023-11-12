@@ -9,9 +9,9 @@ namespace EjercicioIntegrador2_YouTify.Helpers
             return $"SELECT username,password from {tableName} where username = '{credentials.Username}'";
         }
 
-        internal static string GetPlaylistsQuery()
+        internal static string GetPlaylistsQuery(string owner)
         {
-            return $"select * from playlists";
+            return $"select * from playlists where owner = '{owner}'";
         }
     }
 }

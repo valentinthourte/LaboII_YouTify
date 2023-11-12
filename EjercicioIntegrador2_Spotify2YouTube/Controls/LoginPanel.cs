@@ -64,7 +64,7 @@ namespace EjercicioIntegrador2_YouTify
             return !unacceptedTypes.Contains(type);
         }
 
-        public async Task<bool> Login()
+        public async Task<User> Login()
         {
             return await this.loginService?.Login(Credentials);
         }

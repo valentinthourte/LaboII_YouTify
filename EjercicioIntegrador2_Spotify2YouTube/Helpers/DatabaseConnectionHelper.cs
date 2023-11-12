@@ -1,4 +1,5 @@
-﻿using EjercicioIntegrador2_YouTify.Model;
+﻿using EjercicioIntegrador2_YouTify.Interfaces;
+using EjercicioIntegrador2_YouTify.Model;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,9 +17,9 @@ namespace EjercicioIntegrador2_YouTify.Helpers
             return "Server=DESKTOP-GBUDS7S\\SQLEXPRESS;Database=YouTify;User Id=sa;Password=Axoft2010;";//FileHelper.ReadConnectionString();
         }
 
-        public async static Task<SqlDataReader> ExecuteSelectQuery(string query)
+        public async static Task<IEnumerable<T>> ExecuteSelectQuery<T>(string query) where T : IEntity, new()
         {
-            SqlDataReader dataReader;
+            List<T> returnList = new List<T>();
             using (SqlConnection sql = new SqlConnection(DatabaseConnectionHelper.GetConnectionString()))
             {
                 try
@@ -29,7 +30,13 @@ namespace EjercicioIntegrador2_YouTify.Helpers
                         command.Connection = sql;
                         command.CommandType = System.Data.CommandType.Text;
                         command.CommandText = query;
-                        dataReader = await command.ExecuteReaderAsync();
+                        SqlDataReader dataReader = await command.ExecuteReaderAsync();
+                        while (dataReader.Read())
+                        {
+                            T element = new T();
+                            element.MapFromDatabase(dataReader);
+                            returnList.Add(element);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -37,7 +44,7 @@ namespace EjercicioIntegrador2_YouTify.Helpers
                     throw;
                 }
             }
-            return dataReader;
+            return returnList;
         }
 
     }
