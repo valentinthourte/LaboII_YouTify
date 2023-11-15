@@ -38,6 +38,7 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             lpYoutube = new LoginPanel();
             ilLogos = new ImageList(components);
             mpYoutube = new MainPage();
+            ssYoutubeSongs = new SongSearch();
             tbIntegracion = new TabPage();
             tbSpotify = new TabPage();
             lpSpotify = new LoginPanel();
@@ -62,8 +63,9 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             // 
             // tbYoutube
             // 
-            tbYoutube.BackColor = Color.White;
+            tbYoutube.BackColor = Color.WhiteSmoke;
             tbYoutube.Controls.Add(lpYoutube);
+            tbYoutube.Controls.Add(ssYoutubeSongs);
             tbYoutube.Controls.Add(mpYoutube);
             tbYoutube.Location = new Point(4, 24);
             tbYoutube.Name = "tbYoutube";
@@ -74,7 +76,7 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             // 
             // lpYoutube
             // 
-            lpYoutube.BackColor = SystemColors.Window;
+            lpYoutube.BackColor = Color.WhiteSmoke;
             lpYoutube.FontColor = Color.Black;
             lpYoutube.ForeColor = Color.Black;
             lpYoutube.ImgIndex = 0;
@@ -95,12 +97,25 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             // 
             // mpYoutube
             // 
+            mpYoutube.BackColor = Color.WhiteSmoke;
+            mpYoutube.BackgroundColor = Color.WhiteSmoke;
             mpYoutube.Enabled = false;
+            mpYoutube.ImeMode = ImeMode.NoControl;
             mpYoutube.Location = new Point(0, 0);
             mpYoutube.Name = "mpYoutube";
+            mpYoutube.SecondaryColor = Color.WhiteSmoke;
             mpYoutube.Size = new Size(1288, 620);
             mpYoutube.TabIndex = 1;
             mpYoutube.Visible = false;
+            // 
+            // ssYoutubeSongs
+            // 
+            ssYoutubeSongs.Enabled = false;
+            ssYoutubeSongs.Location = new Point(295, 77);
+            ssYoutubeSongs.Name = "ssYoutubeSongs";
+            ssYoutubeSongs.Size = new Size(993, 543);
+            ssYoutubeSongs.TabIndex = 1;
+            ssYoutubeSongs.Visible = false;
             // 
             // tbIntegracion
             // 
@@ -139,9 +154,12 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             // 
             // mpSpotify
             // 
+            mpSpotify.BackColor = Color.FromArgb(22, 22, 22);
+            mpSpotify.BackgroundColor = Color.FromArgb(22, 22, 22);
             mpSpotify.Enabled = false;
             mpSpotify.Location = new Point(0, 0);
             mpSpotify.Name = "mpSpotify";
+            mpSpotify.SecondaryColor = Color.FromArgb(45, 45, 45);
             mpSpotify.Size = new Size(1288, 620);
             mpSpotify.TabIndex = 1;
             mpSpotify.Visible = false;
@@ -152,9 +170,9 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1289, 639);
             Controls.Add(tcTabs);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "frmPrincipal";
             Text = "YouTify";
-            Load += Form1_Load;
             tcTabs.ResumeLayout(false);
             tbYoutube.ResumeLayout(false);
             tbSpotify.ResumeLayout(false);
@@ -176,5 +194,6 @@ namespace EjercicioIntegrador2_Spotify2YouTube
         private LoginPanel lpSpotify;
         private MainPage mpYoutube;
         private MainPage mpSpotify;
+        private SongSearch ssYoutubeSongs;
     }
 }

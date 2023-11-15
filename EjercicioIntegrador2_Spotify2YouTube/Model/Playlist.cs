@@ -1,58 +1,42 @@
-﻿using EjercicioIntegrador2_YouTify.Interfaces;
-using System.Data.SqlClient;
+﻿using Entities.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace EjercicioIntegrador2_YouTify.Model
 {
-    internal class Playlist : IEntity
+    internal class Playlist
     {
         private static string defaultIconFilePath;
-        private string id;
-        private string name;
-        private string iconFilePath;
-        private string owner;
-
         static Playlist()
         {
             Playlist.defaultIconFilePath = "noicon.png";
         }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string IconFilePath { get; set; }
+        public string Owner { get ; set; }
 
-        public Playlist()
-        {
-            this.id = "-1";
-            this.name = "";
-            this.iconFilePath = "";
-            this.owner = "";
-        }
-
-        public Playlist(string id, string name, string filePath, string owner)
-        {
-            this.id = id;
-            this.name = name;
-            this.iconFilePath = filePath;
-            this.owner = owner;
-        }
-
-        public string ImageName { get => this.id; }
-
-        public void MapFromDatabase(SqlDataReader dataReader)
-        {
-            this.id = dataReader["id"].ToString();
-            this.name = dataReader["name"].ToString();
-            this.iconFilePath = dataReader["iconFilePath"].ToString();
-            this.owner = dataReader["owner"].ToString();
-        }
-
+        public string ImageName { get => this.Id; }
+        
         internal string GetIconFileName(string directory)
         {
-            return File.Exists(Path.Combine(directory, iconFilePath)) ? Path.Combine(directory, iconFilePath) : Path.Combine(directory, defaultIconFilePath);
+            return File.Exists(Path.Combine(directory, IconFilePath)) ? Path.Combine(directory, IconFilePath) : Path.Combine(directory, defaultIconFilePath);
         }
 
-        public static explicit operator ListViewItem(Playlist playlist)
+        public static implicit operator Playlist(PlaylistDTO dto)
         {
-            ListViewItem item = new ListViewItem(playlist.name);
-            item.ImageKey = playlist.id;
-            return item;
+            Playlist p = new Playlist();
+            p.Id = dto.Id;
+            p.Name = dto.Name;
+            p.Owner = dto.Owner;
+            p.IconFilePath = dto.IconFilePath;
+            return p;
         }
+
 
     }
 }

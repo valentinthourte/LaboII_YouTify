@@ -1,6 +1,6 @@
 ﻿namespace EjercicioIntegrador2_YouTify.Enums
 {
-    internal enum EPlatform
+    public enum EPlatform
     {
         Youtube,
         Spotify

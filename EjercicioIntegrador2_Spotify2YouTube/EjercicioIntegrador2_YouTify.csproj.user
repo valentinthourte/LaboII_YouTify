@@ -10,5 +10,8 @@
     <Compile Update="Controls\LoginPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Controls\SongSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

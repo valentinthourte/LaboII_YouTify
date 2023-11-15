@@ -1,17 +1,27 @@
-﻿using System;
+﻿using EjercicioIntegrador2_YouTify.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace EjercicioIntegrador2_YouTify.Extensions
 {
-    public static class DirectoryExtensions
+    internal static class Extensions
     {
-        public static string GetAssetsFilePath()
+        public static ListViewItem ToListViewItem(this Song song)
         {
-            return Path.Combine(Directory.GetCurrentDirectory(), "assets/");
+            ListViewItem item = new ListViewItem(song.Name);
+            item.SubItems.Add(song.ArtistName);
+            item.SubItems.Add(song.CreationDate.ToString("dd/MM/yyyy"));
+            return item;
+        }
+        public static ListViewItem ToListViewItem(this Playlist playlist)
+        {
+            ListViewItem item = new ListViewItem(playlist.Name);
+            item.ImageKey = playlist.Id;
+            return item;
         }
     }
-
 }

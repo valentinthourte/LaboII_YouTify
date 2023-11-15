@@ -1,5 +1,7 @@
 ﻿using EjercicioIntegrador2_YouTify.Interfaces;
+using System.CodeDom;
 using System.Data.SqlClient;
+using System.Runtime.CompilerServices;
 
 namespace EjercicioIntegrador2_YouTify.Model
 {
@@ -21,9 +23,9 @@ namespace EjercicioIntegrador2_YouTify.Model
             password = text2;
         }
 
-        internal bool PasswordIsCorrect(string databasePassword)
+        internal bool CredentialsAreValid(Credentials credentials)
         {
-            return string.Equals(databasePassword, password);
+            return credentials is not null && credentials == this;
         }
 
         public void MapFromDatabase(SqlDataReader dataReader)
@@ -31,5 +33,16 @@ namespace EjercicioIntegrador2_YouTify.Model
             this.username = dataReader["username"].ToString();
             this.password = dataReader["password"].ToString();
         }
+
+        public static bool operator ==(Credentials credentials1, Credentials credentials2)
+        {
+            return credentials1 is not null && credentials2 is not null && string.Equals(credentials1.Username, credentials2.Username) && string.Equals(credentials1.Password, credentials2.Password);
+        }
+
+        public static bool operator !=(Credentials credentials1, Credentials credentials2)
+        {
+            return !(credentials1 == credentials2);
+        }
+
     }
 }

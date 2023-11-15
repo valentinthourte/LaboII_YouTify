@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data;
 using EjercicioIntegrador2_YouTify.Extensions;
+using EjercicioIntegrador2_YouTify.Helpers;
 using EjercicioIntegrador2_YouTify.Model;
-using EjercicioIntegrador2_YouTify.Services;
+using EjercicioIntegrador2_YouTify.Services.Base;
 
 namespace EjercicioIntegrador2_YouTify
 {
@@ -17,12 +10,27 @@ namespace EjercicioIntegrador2_YouTify
     {
         private User user;
         private List<Playlist> playlists = new();
+        private PlaylistService playlistService;
 
-        public Color BackgroundColor { set
+        public PlaylistService PlaylistService { set => this.playlistService = value; }
+
+        public Color SecondaryColor { get => this.lvPlaylists.BackColor; set => SetSecondaryColors(value); }
+
+        private void SetSecondaryColors(Color value)
+        {
+            this.lvPlaylists.BackColor = value;
+            this.lvPlaylists.ForeColor = ColorHelper.InvertColor(value);
+        }
+
+        public Color BackgroundColor
+        {
+            get => this.BackColor;
+            set
             {
                 this.BackColor = value;
             }
         }
+
         public MainPage()
         {
             InitializeComponent();
@@ -31,9 +39,9 @@ namespace EjercicioIntegrador2_YouTify
 
         private void InitializePlaylists()
         {
-            lvPlaylists.View = View.Details;
+            lvPlaylists.View = View.Tile;
+            lvPlaylists.TileSize = new Size(400, 30);
             lvPlaylists.Columns.Add("Titulo", 200);
-            lvPlaylists.Columns.Add("Icono", 60);
         }
 
         public void SetCurrentUser(User user)
@@ -45,7 +53,7 @@ namespace EjercicioIntegrador2_YouTify
         private async void LoadPlaylistsForCurrentUser()
         {
             lvPlaylists.Items.Clear();
-            this.playlists = await PlaylistService.GetPlaylistsForUser(this.user);
+            this.playlists = (await this.playlistService.GetPlaylistsForUser(this.user)).Select(p => (Playlist)p).ToList();
             if (this.playlists.Count == 0)
             {
                 lblNoPlaylists.Visible = true;
@@ -55,7 +63,7 @@ namespace EjercicioIntegrador2_YouTify
 
                 lblNoPlaylists.Visible = false;
                 this.LoadPlaylistIcons(playlists);
-                lvPlaylists.Items.AddRange(this.playlists.Select(playlist => (ListViewItem)playlist).ToArray());
+                lvPlaylists.Items.AddRange(this.playlists.Select(playlist => playlist.ToListViewItem()).ToArray());
             }
         }
 

@@ -10,5 +10,10 @@
         {
             this.name = name;
         }
+        public User(Credentials c)
+        {
+
+            this.name = c.Username;
+        }
     }
 }

@@ -13,15 +13,9 @@ namespace EjercicioIntegrador2_YouTify.Repository
             string tableName = $"{platform}Credentials";
             try
             {
-                List<Credentials> list = (List<Credentials>)await DatabaseConnectionHelper.ExecuteSelectQuery<Credentials>(QueryHelper.GetCredentialsQuery(tableName, credentials));
-                string databasePassword = String.Empty;
-                if (list.Count > 0)
-                {
-                    databasePassword = list.First().Password;
-                }
+                Credentials databaseCredentials = ((List<Credentials>)await DatabaseConnectionHelper.ExecuteSelectQuery<Credentials>(QueryHelper.GetCredentialsQuery(tableName, credentials))).FirstOrDefault();
 
-
-                User user = (!string.IsNullOrEmpty(databasePassword) && credentials.PasswordIsCorrect(databasePassword)) ? new User(credentials.Username) : null;
+                User user = credentials.CredentialsAreValid(databaseCredentials) ? new User(databaseCredentials) : null;
                 
                 return user;
             }

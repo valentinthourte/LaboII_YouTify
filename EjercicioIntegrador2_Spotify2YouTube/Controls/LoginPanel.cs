@@ -8,8 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Linq;
-using EjercicioIntegrador2_YouTify.Services;
 using EjercicioIntegrador2_YouTify.Model;
+using EjercicioIntegrador2_YouTify.Services.Base;
 
 namespace EjercicioIntegrador2_YouTify
 {
@@ -66,7 +66,17 @@ namespace EjercicioIntegrador2_YouTify
 
         public async Task<User> Login()
         {
-            return await this.loginService?.Login(Credentials);
+            var user = await this.loginService.Login(Credentials);
+            if (user is null)
+            {
+                this.lblLoginError.Visible = true;
+            }
+            else
+            {
+                this.lblLoginError.Visible = false;
+            }
+
+            return user;
         }
 
         public int ImgIndex

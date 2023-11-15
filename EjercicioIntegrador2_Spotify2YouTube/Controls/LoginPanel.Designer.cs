@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             pnlCredenciales = new Panel();
+            lblLoginError = new Label();
             btnSignUp = new Button();
             btnLogin = new Button();
             tbPassword = new TextBox();
@@ -41,6 +42,7 @@
             // pnlCredenciales
             // 
             pnlCredenciales.BorderStyle = BorderStyle.FixedSingle;
+            pnlCredenciales.Controls.Add(lblLoginError);
             pnlCredenciales.Controls.Add(btnSignUp);
             pnlCredenciales.Controls.Add(btnLogin);
             pnlCredenciales.Controls.Add(tbPassword);
@@ -49,6 +51,17 @@
             pnlCredenciales.Name = "pnlCredenciales";
             pnlCredenciales.Size = new Size(305, 352);
             pnlCredenciales.TabIndex = 6;
+            // 
+            // lblLoginError
+            // 
+            lblLoginError.AutoSize = true;
+            lblLoginError.ForeColor = Color.Red;
+            lblLoginError.Location = new Point(29, 213);
+            lblLoginError.Name = "lblLoginError";
+            lblLoginError.Size = new Size(256, 15);
+            lblLoginError.TabIndex = 7;
+            lblLoginError.Text = "Username or password was incorrect. Try again.";
+            lblLoginError.Visible = false;
             // 
             // btnSignUp
             // 
@@ -136,5 +149,6 @@
         private TextBox tbUsername;
         private Label lblLogin;
         private Label lblLogo;
+        private Label lblLoginError;
     }
 }
