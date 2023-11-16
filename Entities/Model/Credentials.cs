@@ -3,7 +3,7 @@ using System.CodeDom;
 using System.Data.SqlClient;
 using System.Runtime.CompilerServices;
 
-namespace EjercicioIntegrador2_YouTify.Model
+namespace Entities.Model
 {
     public class Credentials: IEntity
     {
@@ -32,6 +32,16 @@ namespace EjercicioIntegrador2_YouTify.Model
         {
             this.username = dataReader["username"].ToString();
             this.password = dataReader["password"].ToString();
+        }
+
+        public string InsertFields()
+        {
+            return $"username,password";
+        }
+
+        public string InsertValues()
+        {
+            return $"{this.username},{this.password}";
         }
 
         public static bool operator ==(Credentials credentials1, Credentials credentials2)

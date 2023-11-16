@@ -7,12 +7,13 @@ namespace EjercicioIntegrador2_YouTify.Repository
 {
     internal class SongRepository
     {
-        internal static async Task<SongList> GetSongs(EPlatform platform)
+        internal static async Task<List<Song>> GetSongs(EPlatform platform)
         {
             string tableName = $"{platform}Songs";
             string query = QueryHelper.GetSongsQuery(tableName);
 
-            return (List<Song>)await DatabaseConnectionHelper.ExecuteSelectQuery<Song>(query);
+            var songs = (List<Song>)await DatabaseConnectionHelper.ExecuteSelectQuery<Song>(query);
+            return songs;
         }
     }
 }

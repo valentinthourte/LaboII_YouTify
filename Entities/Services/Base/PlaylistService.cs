@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EjercicioIntegrador2_YouTify.Services.Base
+namespace Entities.Services.Base
 {
     public abstract class PlaylistService
     {
@@ -17,6 +17,13 @@ namespace EjercicioIntegrador2_YouTify.Services.Base
         {
             return await PlaylistRepository.GetPlaylists(user, platform);
         }
+
+        protected async Task CreatePlaylist(Playlist playlist, EPlatform platform)
+        {
+            await PlaylistRepository.CreatePlaylist(playlist, platform);
+        }
+
         public abstract Task<List<PlaylistDTO>> GetPlaylistsForUser(User user);
+        public abstract void CreatePlaylist(PlaylistDTO playlist);
     }
 }

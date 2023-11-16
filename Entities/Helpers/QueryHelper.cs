@@ -1,4 +1,7 @@
-﻿using EjercicioIntegrador2_YouTify.Model;
+﻿using EjercicioIntegrador2_YouTify.Interfaces;
+using EjercicioIntegrador2_YouTify.Model;
+using Entities.Model;
+using System.Net;
 
 namespace EjercicioIntegrador2_YouTify.Helpers
 {
@@ -20,6 +23,11 @@ namespace EjercicioIntegrador2_YouTify.Helpers
         {
             string joinClause = $"JOIN Songs on {tableName}.SongId = Songs.Id";
             return QueryHelper.GetSelectQueryForTableWithFilterWithJoinClause(tableName, joinClause);
+        }
+
+        internal static string InsertEntityQuery(string tableName, IEntity entity)
+        {
+            return $"insert into {tableName} ({entity.InsertFields()}) values ({entity.InsertValues()})";
         }
 
         private static string GetSelectQueryForTableWithFilterWithJoinClause(string tableName, string whereClause = "", string joinClause = "")

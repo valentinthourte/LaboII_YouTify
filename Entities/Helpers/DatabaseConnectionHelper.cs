@@ -47,6 +47,27 @@ namespace EjercicioIntegrador2_YouTify.Helpers
             return returnList;
         }
 
+        internal static async Task ExecuteInsertQuery(string query)
+        {
+            using (SqlConnection sql = new SqlConnection(DatabaseConnectionHelper.GetConnectionString()))
+            {
+                try
+                {
+                    await sql.OpenAsync();
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.Connection = sql;
+                        command.CommandType = System.Data.CommandType.Text;
+                        command.CommandText = query;
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+        }
     }
 }
 

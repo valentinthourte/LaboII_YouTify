@@ -20,7 +20,7 @@ namespace EjercicioIntegrador2_YouTify.Extensions
         public static ListViewItem ToListViewItem(this Playlist playlist)
         {
             ListViewItem item = new ListViewItem(playlist.Name);
-            item.ImageKey = playlist.Id;
+            item.ImageKey = playlist.ImageName;
             return item;
         }
     }

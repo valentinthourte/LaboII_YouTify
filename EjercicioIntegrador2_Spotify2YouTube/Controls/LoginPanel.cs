@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Linq;
 using EjercicioIntegrador2_YouTify.Model;
 using EjercicioIntegrador2_YouTify.Services.Base;
+using Entities.Model;
 
 namespace EjercicioIntegrador2_YouTify
 {

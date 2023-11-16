@@ -1,4 +1,6 @@
-﻿namespace EjercicioIntegrador2_YouTify.Model
+﻿using Entities.Model;
+
+namespace EjercicioIntegrador2_YouTify.Model
 {
     public class User
     {
@@ -12,7 +14,6 @@
         }
         public User(Credentials c)
         {
-
             this.name = c.Username;
         }
     }

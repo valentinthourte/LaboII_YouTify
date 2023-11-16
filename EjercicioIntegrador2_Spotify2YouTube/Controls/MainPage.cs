@@ -3,6 +3,9 @@ using EjercicioIntegrador2_YouTify.Extensions;
 using EjercicioIntegrador2_YouTify.Helpers;
 using EjercicioIntegrador2_YouTify.Model;
 using EjercicioIntegrador2_YouTify.Services.Base;
+using Entities.DTOs;
+using Entities.Services.Base;
+using YouTify;
 
 namespace EjercicioIntegrador2_YouTify
 {
@@ -13,6 +16,13 @@ namespace EjercicioIntegrador2_YouTify
         private PlaylistService playlistService;
 
         public PlaylistService PlaylistService { set => this.playlistService = value; }
+        public SongService SongService { set => InitializeSongSearch(value); }
+
+        private void InitializeSongSearch(SongService value)
+        {
+            this.ssSongSearch.SongsService = value;
+            this.ssSongSearch.Enter();
+        }
 
         public Color SecondaryColor { get => this.lvPlaylists.BackColor; set => SetSecondaryColors(value); }
 
@@ -34,8 +44,14 @@ namespace EjercicioIntegrador2_YouTify
         public MainPage()
         {
             InitializeComponent();
+            InitializeControls();
+        }
+
+        private void InitializeControls()
+        {
             InitializePlaylists();
         }
+
 
         private void InitializePlaylists()
         {
@@ -75,6 +91,27 @@ namespace EjercicioIntegrador2_YouTify
                 string iconPath = playlist.GetIconFileName(DirectoryExtensions.GetAssetsFilePath());
                 ilPlaylistIcons.Images.Add(playlist.ImageName, Image.FromFile(iconPath));
             }
+        }
+
+        private async void btnNewPlaylist_Click(object sender, EventArgs e)
+        {
+            frmNewPlaylist frmNewPlaylist = new frmNewPlaylist();
+            DialogResult result = frmNewPlaylist.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                PlaylistDTO dto = frmNewPlaylist.GetPlaylist(this.user);
+                this.playlistService.CreatePlaylist(dto);
+                this.LoadPlaylistsForCurrentUser();
+            }
+        }
+
+        private void btnFindSongs_Click(object sender, EventArgs e)
+        {
+            this.pdPlaylistDetail.Enabled = false;
+            this.pdPlaylistDetail.Visible = false;
+            this.ssSongSearch.Enter();
+            this.ssSongSearch.Enabled = true;
+            this.ssSongSearch.Visible = true;
         }
     }
 }

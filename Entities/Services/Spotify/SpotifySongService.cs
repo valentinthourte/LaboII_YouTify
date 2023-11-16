@@ -1,6 +1,7 @@
 ﻿using EjercicioIntegrador2_YouTify.Enums;
 using EjercicioIntegrador2_YouTify.Model;
 using EjercicioIntegrador2_YouTify.Services.Base;
+using Entities.DTOs;
 using Entities.Model;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,9 @@ namespace EjercicioIntegrador2_YouTify.Services.Spotify
 {
     public class SpotifySongService : SongService
     {
-        public override Task<SongList> GetSongs()
+        public async override Task<List<SongDTO>> GetSongs()
         {
-            return base.GetSongs(EPlatform.Spotify);
+            return (await base.GetSongs(EPlatform.Spotify)).Select(song => (SongDTO)song).ToList();
         }
     }
 }

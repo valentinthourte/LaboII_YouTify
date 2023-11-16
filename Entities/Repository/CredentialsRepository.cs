@@ -2,6 +2,7 @@
 using EjercicioIntegrador2_YouTify.Exceptions;
 using EjercicioIntegrador2_YouTify.Helpers;
 using EjercicioIntegrador2_YouTify.Model;
+using Entities.Model;
 using System.Data.SqlClient;
 
 namespace EjercicioIntegrador2_YouTify.Repository

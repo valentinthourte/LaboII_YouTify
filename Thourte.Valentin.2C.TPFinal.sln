@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EjercicioIntegrador2_YouTify", "EjercicioIntegrador2_Spotify2YouTube\EjercicioIntegrador2_YouTify.csproj", "{FCED474B-DA88-4ADC-8D5B-BE3BBE5E15D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YouTify", "EjercicioIntegrador2_Spotify2YouTube\YouTify.csproj", "{FCED474B-DA88-4ADC-8D5B-BE3BBE5E15D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{ABF21231-EB1B-4363-A20E-18939A8B9901}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{ABF21231-EB1B-4363-A20E-18939A8B9901}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

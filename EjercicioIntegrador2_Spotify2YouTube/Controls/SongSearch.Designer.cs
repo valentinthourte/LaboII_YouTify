@@ -29,28 +29,40 @@
         private void InitializeComponent()
         {
             lvSongList = new ListView();
+            tbSearch = new TextBox();
             SuspendLayout();
             // 
             // lvSongList
             // 
-            lvSongList.Location = new Point(0, 0);
+            lvSongList.Location = new Point(0, 28);
             lvSongList.Name = "lvSongList";
-            lvSongList.Size = new Size(993, 543);
+            lvSongList.Size = new Size(993, 515);
             lvSongList.TabIndex = 0;
             lvSongList.UseCompatibleStateImageBehavior = false;
+            // 
+            // tbSearch
+            // 
+            tbSearch.Location = new Point(134, 3);
+            tbSearch.Name = "tbSearch";
+            tbSearch.PlaceholderText = "Search";
+            tbSearch.Size = new Size(343, 23);
+            tbSearch.TabIndex = 1;
             // 
             // SongSearch
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(tbSearch);
             Controls.Add(lvSongList);
             Name = "SongSearch";
             Size = new Size(993, 543);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private ListView lvSongList;
+        private TextBox tbSearch;
     }
 }

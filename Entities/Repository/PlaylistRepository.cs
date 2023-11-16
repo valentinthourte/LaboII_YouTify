@@ -25,5 +25,14 @@ namespace EjercicioIntegrador2_YouTify.Repository
         {
             return await GetPlaylists(user.Name, platform);
         }
+
+        internal async static Task CreatePlaylist(Playlist playlist, EPlatform platform)
+        {
+            string tableName = $"{platform}Playlists";
+            string query = QueryHelper.InsertEntityQuery(tableName, playlist);
+
+            await DatabaseConnectionHelper.ExecuteInsertQuery(query);
+            
+        }
     }
 }

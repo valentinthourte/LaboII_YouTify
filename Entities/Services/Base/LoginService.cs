@@ -1,4 +1,5 @@
 ﻿using EjercicioIntegrador2_YouTify.Model;
+using Entities.Model;
 
 namespace EjercicioIntegrador2_YouTify.Services.Base
 {

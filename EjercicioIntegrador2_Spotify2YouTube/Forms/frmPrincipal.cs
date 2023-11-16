@@ -18,11 +18,12 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             // Spotify
             lpSpotify.LoginService = new SpotifyLoginService();
             mpSpotify.PlaylistService = new SpotifyPlaylistService();
+            mpSpotify.SongService = new SpotifySongService();
             mpSpotify.BackgroundColor = tbSpotify.BackColor;
             // Youtube
             lpYoutube.LoginService = new YoutubeLoginService();
             mpYoutube.PlaylistService = new YoutubePlaylistService();
-            ssYoutubeSongs.SongsService = new YoutubeSongService();
+            mpYoutube.SongService = new YoutubeSongService();
             mpYoutube.BackgroundColor = tbYoutube.BackColor;
         }
 
@@ -49,7 +50,6 @@ namespace EjercicioIntegrador2_Spotify2YouTube
                 mpYoutube.SetCurrentUser(user);
                 mpYoutube.Enabled = true;
                 mpYoutube.Visible = true;
-                ssYoutubeSongs.Enter();
 
             }
         }

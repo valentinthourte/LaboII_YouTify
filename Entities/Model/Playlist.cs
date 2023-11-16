@@ -27,14 +27,22 @@ namespace Entities.Model
             this.owner = owner;
         }
 
-
-
         public void MapFromDatabase(SqlDataReader dataReader)
         {
             this.id = dataReader["id"].ToString();
             this.name = dataReader["name"].ToString();
             this.iconFilePath = dataReader["iconFilePath"].ToString();
             this.owner = dataReader["owner"].ToString();
+        }
+
+        public string InsertFields()
+        {
+            return $"name,owner,iconFilePath";
+        }
+
+        public string InsertValues()
+        {
+            return $"'{this.name}','{this.owner}','{this.iconFilePath}'";
         }
 
         public static implicit operator PlaylistDTO(Playlist playlist)
@@ -44,9 +52,20 @@ namespace Entities.Model
             dto.Name = playlist.name;
             dto.Owner = playlist.owner;
             dto.IconFilePath = playlist.iconFilePath;
-            
+
             return dto;
         }
+
+        public static implicit operator Playlist(PlaylistDTO dto)
+        {
+            Playlist playlist = new();
+            playlist.id = dto.Id;
+            playlist.name = dto.Name;
+            playlist.owner = dto.Owner;
+            playlist.iconFilePath = dto.IconFilePath;
+            return playlist;
+        }
+
 
     }
 }

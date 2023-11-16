@@ -13,13 +13,13 @@ namespace EjercicioIntegrador2_YouTify.Model
         public string ArtistName { get; set;}
         public DateTime CreationDate { get; set;}
 
-        public static explicit operator Song(Entities.Model.Song s)
+        public static explicit operator Song(Entities.DTOs.SongDTO s)
         {
             Song song = new Song();
-            song.Id = s.id;
-            song.Name = s.name;
-            song.ArtistName = s.artistName;
-            song.CreationDate = s.creationDate;
+            song.Id = s.Id;
+            song.Name = s.Name;
+            song.ArtistName = s.Artist;
+            song.CreationDate = s.CreationDate;
             return song;
         }
     }

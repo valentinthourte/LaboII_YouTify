@@ -2,6 +2,7 @@
 using EjercicioIntegrador2_YouTify.Model;
 using EjercicioIntegrador2_YouTify.Repository;
 using EjercicioIntegrador2_YouTify.Services.Base;
+using Entities.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

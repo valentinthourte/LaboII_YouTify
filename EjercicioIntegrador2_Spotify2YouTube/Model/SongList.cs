@@ -1,4 +1,5 @@
 ﻿using EjercicioIntegrador2_YouTify.Extensions;
+using Entities.DTOs;
 using System.CodeDom;
 
 namespace EjercicioIntegrador2_YouTify.Model
@@ -12,6 +13,13 @@ namespace EjercicioIntegrador2_YouTify.Model
         { 
             this.songs = songs;
         }
+
+        internal SongList(List<SongDTO> songs)
+        {
+            this.songs = songs.Select(s => (Song)s).ToList();
+        }
+
+
         public Song this[int index]
         {
             get { return songs[index]; }
@@ -28,14 +36,5 @@ namespace EjercicioIntegrador2_YouTify.Model
             return returnList;
         }
 
-        public static implicit operator SongList(List<Song> songList)
-        {
-            return new SongList(songList);
-        }
-
-        public static implicit operator SongList(Entities.Model.SongList v)
-        {
-            return new SongList(v.Songs.Select(s => (Song)s).ToList());
-        }
     }
 }

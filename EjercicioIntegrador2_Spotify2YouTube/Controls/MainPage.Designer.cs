@@ -35,9 +35,13 @@
             lblNoPlaylists = new Label();
             lvPlaylists = new ListView();
             ilPlaylistIcons = new ImageList(components);
-            tbBuscadorCanciones = new TextBox();
             panel1 = new Panel();
+            ssSongSearch = new SongSearch();
+            pdPlaylistDetail = new Controls.PlaylistDetail();
+            btnFindSongs = new Button();
+            btnNewPlaylist = new Button();
             pnlPlaylistList.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pnlPlaylistList
@@ -82,32 +86,64 @@
             ilPlaylistIcons.ImageSize = new Size(16, 16);
             ilPlaylistIcons.TransparentColor = Color.Transparent;
             // 
-            // tbBuscadorCanciones
-            // 
-            tbBuscadorCanciones.Location = new Point(441, 20);
-            tbBuscadorCanciones.Name = "tbBuscadorCanciones";
-            tbBuscadorCanciones.Size = new Size(390, 23);
-            tbBuscadorCanciones.TabIndex = 1;
-            // 
             // panel1
             // 
+            panel1.Controls.Add(ssSongSearch);
+            panel1.Controls.Add(pdPlaylistDetail);
             panel1.Location = new Point(295, 77);
             panel1.Name = "panel1";
             panel1.Size = new Size(993, 543);
             panel1.TabIndex = 2;
             // 
+            // ssSongSearch
+            // 
+            ssSongSearch.Location = new Point(0, 0);
+            ssSongSearch.Name = "ssSongSearch";
+            ssSongSearch.SecondaryColor = SystemColors.Window;
+            ssSongSearch.Size = new Size(993, 543);
+            ssSongSearch.TabIndex = 3;
+            // 
+            // pdPlaylistDetail
+            // 
+            pdPlaylistDetail.Location = new Point(3, 3);
+            pdPlaylistDetail.Name = "pdPlaylistDetail";
+            pdPlaylistDetail.Size = new Size(993, 543);
+            pdPlaylistDetail.TabIndex = 4;
+            pdPlaylistDetail.Visible = false;
+            // 
+            // btnFindSongs
+            // 
+            btnFindSongs.Location = new Point(172, 48);
+            btnFindSongs.Name = "btnFindSongs";
+            btnFindSongs.Size = new Size(95, 23);
+            btnFindSongs.TabIndex = 5;
+            btnFindSongs.Text = "Find songs";
+            btnFindSongs.UseVisualStyleBackColor = true;
+            btnFindSongs.Click += btnFindSongs_Click;
+            // 
+            // btnNewPlaylist
+            // 
+            btnNewPlaylist.Location = new Point(17, 48);
+            btnNewPlaylist.Name = "btnNewPlaylist";
+            btnNewPlaylist.Size = new Size(95, 23);
+            btnNewPlaylist.TabIndex = 6;
+            btnNewPlaylist.Text = "New playlist";
+            btnNewPlaylist.UseVisualStyleBackColor = true;
+            btnNewPlaylist.Click += btnNewPlaylist_Click;
+            // 
             // MainPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(btnNewPlaylist);
+            Controls.Add(btnFindSongs);
             Controls.Add(panel1);
-            Controls.Add(tbBuscadorCanciones);
             Controls.Add(pnlPlaylistList);
             Name = "MainPage";
             Size = new Size(1288, 620);
             pnlPlaylistList.ResumeLayout(false);
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -117,7 +153,10 @@
         private ListView lvPlaylists;
         private ImageList ilPlaylistIcons;
         private Label lblNoPlaylists;
-        private TextBox tbBuscadorCanciones;
         private Panel panel1;
+        private SongSearch ssSongSearch;
+        private Controls.PlaylistDetail pdPlaylistDetail;
+        private Button btnFindSongs;
+        private Button btnNewPlaylist;
     }
 }
