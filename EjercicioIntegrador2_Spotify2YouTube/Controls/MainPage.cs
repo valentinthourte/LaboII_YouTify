@@ -30,6 +30,8 @@ namespace EjercicioIntegrador2_YouTify
         {
             this.lvPlaylists.BackColor = value;
             this.lvPlaylists.ForeColor = ColorHelper.InvertColor(value);
+            this.ssSongSearch.BackColor = value;
+            this.ssSongSearch.ForeColor = ColorHelper.InvertColor(value);
         }
 
         public Color BackgroundColor

@@ -51,5 +51,10 @@ namespace EjercicioIntegrador2_YouTify
             this.Visible = true;
             this.Songs = new SongList(await this.songService.GetSongs());
         }
+
+        private void tbSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.Songs = this.songList.FilterBy(tbSearch.Text);
+        }
     }
 }

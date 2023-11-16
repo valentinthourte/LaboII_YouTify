@@ -6,9 +6,9 @@ namespace EjercicioIntegrador2_YouTify.Model
 {
     internal class SongList
     {
-
         private List<Song> songs = new();
 
+        private List<Song> originalSongs;
         internal SongList(List<Song> songs) 
         { 
             this.songs = songs;
@@ -17,12 +17,24 @@ namespace EjercicioIntegrador2_YouTify.Model
         internal SongList(List<SongDTO> songs)
         {
             this.songs = songs.Select(s => (Song)s).ToList();
+            this.originalSongs = this.songs;
         }
 
 
         public Song this[int index]
         {
             get { return songs[index]; }
+        }
+
+        internal SongList FilterBy(string text)
+        {
+            this.songs = this.originalSongs;
+            string filter = text.ToLower();
+            if (!string.IsNullOrEmpty(text))
+            {
+                this.songs = this.songs.Where(s => s.Name.ToLower().Contains(filter) || s.ArtistName.ToLower().Contains(filter)).ToList();
+            }
+            return this;
         }
 
         internal List<ListViewItem> GetListViewItems()

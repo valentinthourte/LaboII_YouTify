@@ -47,6 +47,7 @@
             tbSearch.PlaceholderText = "Search";
             tbSearch.Size = new Size(343, 23);
             tbSearch.TabIndex = 1;
+            tbSearch.KeyPress += tbSearch_KeyPress;
             // 
             // SongSearch
             // 
