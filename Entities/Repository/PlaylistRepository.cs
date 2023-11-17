@@ -34,5 +34,14 @@ namespace EjercicioIntegrador2_YouTify.Repository
             await DatabaseConnectionHelper.ExecuteInsertQuery(query);
             
         }
+
+        internal static void AddSongsToPlaylist(Playlist selectedPlaylist, List<Song> songs, EPlatform platform)
+        {
+            string tableName = $"{platform}PlaylistSong";
+            string query = QueryHelper.GetAddSongsToPlaylistQuery(tableName, selectedPlaylist, songs);
+
+            DatabaseConnectionHelper.ExecuteInsertQuery(query);
+
+        }
     }
 }

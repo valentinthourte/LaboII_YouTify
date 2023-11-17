@@ -13,6 +13,11 @@ namespace EjercicioIntegrador2_YouTify.Services.Youtube
 {
     public class YoutubeSongService : SongService
     {
+        public async override Task<List<SongDTO>> GetPlaylistSongs(PlaylistDTO playlist)
+        {
+            return (await base.GetPlaylistSongs(playlist, EPlatform.Youtube)).Select(song => (SongDTO)song).ToList();
+        }
+
         public async override Task<List<SongDTO>> GetSongs()
         {
             return (await base.GetSongs(EPlatform.Youtube)).Select(song => (SongDTO)song).ToList();

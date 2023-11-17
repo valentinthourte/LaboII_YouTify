@@ -13,6 +13,11 @@ namespace EjercicioIntegrador2_YouTify.Services.Base
             var songs = await SongRepository.GetSongs(platform);
             return songs;
         }
+        protected async Task<List<Song>> GetPlaylistSongs(Playlist playlist, EPlatform platform)
+        {
+            return await SongRepository.GetSongsForPlaylist(playlist, platform);
+        }
         public abstract Task<List<SongDTO>> GetSongs();
+        public abstract Task<List<SongDTO>> GetPlaylistSongs(PlaylistDTO playlist);
     }
 }

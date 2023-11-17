@@ -11,6 +11,11 @@ namespace EjercicioIntegrador2_YouTify.Services.Youtube
 {
     public class YoutubePlaylistService : PlaylistService
     {
+        public override void AddSongsToPlaylist(PlaylistDTO selectedPlaylist, List<SongDTO> songs)
+        {
+            base.AddSongsToPlaylist(selectedPlaylist, songs.Select(s => (Song)s).ToList(), EPlatform.Youtube);
+        }
+
         public override void CreatePlaylist(PlaylistDTO playlist)
         {
             base.CreatePlaylist(playlist, EPlatform.Youtube);

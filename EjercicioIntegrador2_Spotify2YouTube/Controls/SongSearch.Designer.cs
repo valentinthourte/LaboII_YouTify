@@ -28,8 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             lvSongList = new ListView();
             tbSearch = new TextBox();
+            ctxmSongContextMenu = new ContextMenuStrip(components);
+            miAddSongToPlaylist = new ToolStripMenuItem();
+            miRemove = new ToolStripMenuItem();
+            ctxmSongContextMenu.SuspendLayout();
             SuspendLayout();
             // 
             // lvSongList
@@ -39,6 +44,7 @@
             lvSongList.Size = new Size(993, 515);
             lvSongList.TabIndex = 0;
             lvSongList.UseCompatibleStateImageBehavior = false;
+            lvSongList.MouseClick += lvSongList_MouseClick;
             // 
             // tbSearch
             // 
@@ -49,6 +55,26 @@
             tbSearch.TabIndex = 1;
             tbSearch.KeyPress += tbSearch_KeyPress;
             // 
+            // ctxmSongContextMenu
+            // 
+            ctxmSongContextMenu.Items.AddRange(new ToolStripItem[] { miAddSongToPlaylist, miRemove });
+            ctxmSongContextMenu.Name = "ctxmSongContextMenu";
+            ctxmSongContextMenu.Size = new Size(181, 70);
+            // 
+            // miAddSongToPlaylist
+            // 
+            miAddSongToPlaylist.Name = "miAddSongToPlaylist";
+            miAddSongToPlaylist.Size = new Size(180, 22);
+            miAddSongToPlaylist.Text = "Add to playlist";
+            miAddSongToPlaylist.Click += miAddSongToPlaylist_Click;
+            // 
+            // miRemove
+            // 
+            miRemove.Enabled = false;
+            miRemove.Name = "miRemove";
+            miRemove.Size = new Size(180, 22);
+            miRemove.Text = "Remove";
+            // 
             // SongSearch
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -57,6 +83,7 @@
             Controls.Add(lvSongList);
             Name = "SongSearch";
             Size = new Size(993, 543);
+            ctxmSongContextMenu.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -65,5 +92,8 @@
 
         private ListView lvSongList;
         private TextBox tbSearch;
+        private ContextMenuStrip ctxmSongContextMenu;
+        private ToolStripMenuItem miAddSongToPlaylist;
+        private ToolStripMenuItem miRemove;
     }
 }

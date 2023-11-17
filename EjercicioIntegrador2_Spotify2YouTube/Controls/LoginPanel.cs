@@ -114,7 +114,5 @@ namespace EjercicioIntegrador2_YouTify
         {
             SignupClick?.Invoke(this, e);
         }
-
-
     }
 }

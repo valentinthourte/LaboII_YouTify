@@ -13,6 +13,11 @@ namespace EjercicioIntegrador2_YouTify.Services.Spotify
 {
     public class SpotifySongService : SongService
     {
+        public async override Task<List<SongDTO>> GetPlaylistSongs(PlaylistDTO playlist)
+        {
+            return (await base.GetPlaylistSongs(playlist, EPlatform.Spotify)).Select(song => (SongDTO)song).ToList();
+        }
+
         public async override Task<List<SongDTO>> GetSongs()
         {
             return (await base.GetSongs(EPlatform.Spotify)).Select(song => (SongDTO)song).ToList();

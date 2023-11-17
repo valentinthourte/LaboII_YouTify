@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace Entities.Model
 {
-    public class Credentials: IEntity
+    public class Credentials : IEntity
     {
         private string username = "";
         private string password = "";
@@ -34,14 +34,19 @@ namespace Entities.Model
             this.password = dataReader["password"].ToString();
         }
 
-        public string InsertFields()
+        public string GetInsertFields()
         {
             return $"username,password";
         }
 
-        public string InsertValues()
+        public string GetInsertValues()
         {
             return $"{this.username},{this.password}";
+        }
+
+        public string GetSqlId()
+        {
+            return this.username;
         }
 
         public static bool operator ==(Credentials credentials1, Credentials credentials2)

@@ -1,4 +1,6 @@
-﻿using EjercicioIntegrador2_YouTify.Model;
+﻿using EjercicioIntegrador2_YouTify.Helpers;
+using EjercicioIntegrador2_YouTify.Model;
+using EjercicioIntegrador2_YouTify.Services.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static EjercicioIntegrador2_YouTify.SongSearch;
 
 namespace EjercicioIntegrador2_YouTify.Controls
 {
@@ -17,17 +20,20 @@ namespace EjercicioIntegrador2_YouTify.Controls
 
         internal Playlist ActivePlaylist { set => SetActivePlaylist(value); }
 
+        internal OnAddToPlaylist OnAddToPlaylist { set => this.ssPlaylistSongs.onAddToPlaylist += value; }
+        public Color SecondaryColor { get => this.BackColor; set => SetSecondaryColors(value); }
+        public SongService SongService { set => this.ssPlaylistSongs.SongsService = value; }
 
+        private void SetSecondaryColors(Color value)
+        {
+            this.ssPlaylistSongs.SecondaryColor = value;
+            this.lblPlaylistName.ForeColor = ColorHelper.InvertColor(value);
+            this.lblPlaylistOwner.ForeColor = ColorHelper.InvertColor(value);
+        }
 
         public PlaylistDetail()
         {
             InitializeComponent();
-            InitializeList();
-        }
-
-        private void InitializeList()
-        {
-
         }
 
         private void SetActivePlaylist(Playlist playlist)
@@ -38,6 +44,9 @@ namespace EjercicioIntegrador2_YouTify.Controls
                 playlist.GetPlaylistInformation(out string playlistName, out string playlistOwner);
                 this.lblPlaylistName.Text = playlistName;
                 this.lblPlaylistOwner.Text = playlistOwner;
+
+                this.ssPlaylistSongs.SetActivePlaylist(playlist);
+
                 this.Visible = true;
                 this.Enabled = true;
             }

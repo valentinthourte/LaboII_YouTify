@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Reflection.Metadata.Ecma335;
 using EjercicioIntegrador2_YouTify.Extensions;
 using EjercicioIntegrador2_YouTify.Helpers;
 using EjercicioIntegrador2_YouTify.Model;
@@ -6,6 +7,7 @@ using EjercicioIntegrador2_YouTify.Services.Base;
 using Entities.DTOs;
 using Entities.Services.Base;
 using YouTify;
+using YouTify.Forms;
 
 namespace EjercicioIntegrador2_YouTify
 {
@@ -15,14 +17,35 @@ namespace EjercicioIntegrador2_YouTify
         private List<Playlist> playlists = new();
         private PlaylistService playlistService;
 
+        private Playlist ActivePlaylist { get => GetActivePlaylist(); }
+
+        private Playlist GetActivePlaylist()
+        {
+            Playlist playlist;
+            try
+            {
+                playlist = this.playlists.ElementAt(this.lvPlaylists.SelectedIndices[0]);
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                playlist = null;
+            }
+            return playlist;
+        }
+
         public PlaylistService PlaylistService { set => this.playlistService = value; }
         public SongService SongService { set => InitializeSongSearch(value); }
 
         private void InitializeSongSearch(SongService value)
         {
             this.ssSongSearch.SongsService = value;
+            this.ssSongSearch.onAddToPlaylist += this.OnAddSongToPlaylist;
+            this.pdPlaylistDetail.OnAddToPlaylist = this.OnAddSongToPlaylist;
+            this.pdPlaylistDetail.SongService = value;
             this.ssSongSearch.Enter();
         }
+
+
 
         public Color SecondaryColor { get => this.lvPlaylists.BackColor; set => SetSecondaryColors(value); }
 
@@ -30,8 +53,8 @@ namespace EjercicioIntegrador2_YouTify
         {
             this.lvPlaylists.BackColor = value;
             this.lvPlaylists.ForeColor = ColorHelper.InvertColor(value);
-            this.ssSongSearch.BackColor = value;
-            this.ssSongSearch.ForeColor = ColorHelper.InvertColor(value);
+            this.ssSongSearch.SecondaryColor = value;
+            this.pdPlaylistDetail.SecondaryColor = value;
         }
 
         public Color BackgroundColor
@@ -60,6 +83,16 @@ namespace EjercicioIntegrador2_YouTify
             lvPlaylists.View = View.Tile;
             lvPlaylists.TileSize = new Size(400, 30);
             lvPlaylists.Columns.Add("Titulo", 200);
+            lvPlaylists.DoubleClick += OnPlaylistDoubleClick;
+        }
+
+        private void OnPlaylistDoubleClick(object? sender, EventArgs e)
+        {
+            this.ssSongSearch.Enabled = false;
+            this.ssSongSearch.Visible = false;
+
+            this.pdPlaylistDetail.ActivePlaylist = this.ActivePlaylist;
+
         }
 
         public void SetCurrentUser(User user)
@@ -82,6 +115,15 @@ namespace EjercicioIntegrador2_YouTify
                 lblNoPlaylists.Visible = false;
                 this.LoadPlaylistIcons(playlists);
                 lvPlaylists.Items.AddRange(this.playlists.Select(playlist => playlist.ToListViewItem()).ToArray());
+            }
+        }
+        private void OnAddSongToPlaylist(List<Song> songs)
+        {
+            frmAddToPlaylist frmAddToPlaylist = new frmAddToPlaylist(this.playlists, songs);
+            frmAddToPlaylist.ShowDialog();
+            if (frmAddToPlaylist.DialogResult  == DialogResult.OK)
+            {
+                this.playlistService.AddSongsToPlaylist(frmAddToPlaylist.SelectedPlaylist, songs.Select(s => (SongDTO)s).ToList());
             }
         }
 

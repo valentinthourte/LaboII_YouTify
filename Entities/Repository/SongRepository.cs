@@ -15,5 +15,16 @@ namespace EjercicioIntegrador2_YouTify.Repository
             var songs = (List<Song>)await DatabaseConnectionHelper.ExecuteSelectQuery<Song>(query);
             return songs;
         }
+
+        internal static async Task<List<Song>> GetSongsForPlaylist(Playlist playlist, EPlatform platform)
+        {
+            string songsTableName = $"Songs";
+            string relationTableName = $"{platform}PlaylistSong";
+            
+            string query = QueryHelper.GetSongsForPlaylistQuery(songsTableName, relationTableName, playlist);
+
+            var songs = (List<Song>)await DatabaseConnectionHelper.ExecuteSelectQuery<Song>(query);
+            return songs;
+        }
     }
 }

@@ -11,6 +11,10 @@ namespace EjercicioIntegrador2_YouTify.Services.Spotify
 {
     public class SpotifyPlaylistService : PlaylistService
     {
+        public override void AddSongsToPlaylist(PlaylistDTO selectedPlaylist, List<SongDTO> songs)
+        {
+            base.AddSongsToPlaylist(selectedPlaylist, songs.Select(s => (Song)s).ToList(), EPlatform.Spotify);
+        }
 
         public override void CreatePlaylist(PlaylistDTO playlist)
         {

@@ -12,7 +12,20 @@ namespace EjercicioIntegrador2_YouTify
         public SongService SongsService { set => this.songService = value; }
         internal SongList Songs { set => UpdateSongList(value); }
 
+        internal delegate void OnAddToPlaylist(List<Song> songs);
+        internal delegate void OnRemoveFromPlaylist(List<Song> songs);
+        internal event OnAddToPlaylist onAddToPlaylist;
+        internal event OnRemoveFromPlaylist onRemoveFromPlaylist;
+
+
         public Color SecondaryColor { get => this.lvSongList.BackColor; set => SetSecondaryColors(value); }
+
+        private List<Song> SelectedSongs { get => GetSelectedSongs(); }
+
+        private List<Song> GetSelectedSongs()
+        {
+            return songList.GetSongsByIndices(this.lvSongList.SelectedIndices.Cast<int>().ToList());
+        }
 
         private void SetSecondaryColors(Color value)
         {
@@ -52,9 +65,37 @@ namespace EjercicioIntegrador2_YouTify
             this.Songs = new SongList(await this.songService.GetSongs());
         }
 
+        public async void SetActivePlaylist(Playlist playlist)
+        {
+            var songs = (await this.songService.GetPlaylistSongs(playlist));
+            this.Songs = new SongList(songs);
+
+            this.Enabled = true;
+            this.Visible = true;
+        }
+
         private void tbSearch_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.Songs = this.songList.FilterBy(tbSearch.Text);
+        }
+
+        private void miAddSongToPlaylist_Click(object sender, EventArgs e)
+        {
+            if (this.onAddToPlaylist is not null && this.SelectedSongs.Count > 0)
+            {
+                this.onAddToPlaylist(this.SelectedSongs);
+            }
+        }
+
+        private void lvSongList_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (lvSongList.SelectedItems.Count > 0)
+                {
+                    ctxmSongContextMenu.Show(lvSongList, e.Location);
+                }
+            }
         }
     }
 }

@@ -26,6 +26,12 @@ namespace EjercicioIntegrador2_YouTify.Model
             get { return songs[index]; }
         }
 
+        internal List<Song> GetSongsByIndices(List<int> list)
+        {
+            // Utilizo list.Contains porque es una lista de tipos por valor, el contains no comparará por referencia
+            return this.originalSongs.Where(s => list.Contains(s.Id)).ToList();
+        }
+
         internal SongList FilterBy(string text)
         {
             this.songs = this.originalSongs;
@@ -48,5 +54,9 @@ namespace EjercicioIntegrador2_YouTify.Model
             return returnList;
         }
 
+        internal void Update(List<Song> songs)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

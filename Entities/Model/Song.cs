@@ -11,14 +11,23 @@ namespace EjercicioIntegrador2_YouTify.Model
         private string artistName;
         private DateTime creationDate;
 
-        public string InsertFields()
+        public static string SelectFields()
+        {
+            return $"songs.id, songs.title, songs.artist,songs.creationDate";
+        }
+        public string GetInsertFields()
         {
             return $"'title','artist','creationDate'";
         }
 
-        public string InsertValues()
+        public string GetInsertValues()
         {
             return $"'{this.name}','{this.artistName}','{DateTime.Now}'";
+        }
+
+        public string GetSqlId()
+        {
+            return this.id.ToString();
         }
 
         public void MapFromDatabase(SqlDataReader dataReader)
@@ -34,9 +43,18 @@ namespace EjercicioIntegrador2_YouTify.Model
             SongDTO dto = new SongDTO();
             dto.Id = song.id;
             dto.Name = song.name;
-            dto.Artist= song.artistName;
+            dto.Artist = song.artistName;
             dto.CreationDate = song.creationDate;
             return dto;
+        }
+        public static explicit operator Song(SongDTO dto)
+        {
+            Song song = new Song();
+            song.id = dto.Id;
+            song.name = dto.Name;
+            song.artistName = dto.Artist;
+            song.creationDate = dto.CreationDate;
+            return song;
         }
 
     }

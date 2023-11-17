@@ -15,7 +15,8 @@ namespace EjercicioIntegrador2_YouTify.Model
         public string Name { get; set; }
         private string IconFilePath { get; set; }
         private string Owner { get; set; }
-        public string ImageName { get => this.Id ?? "-1"; }
+        public string ImageName { get => this.Id ?? "0"; }
+
 
         static Playlist()
         {

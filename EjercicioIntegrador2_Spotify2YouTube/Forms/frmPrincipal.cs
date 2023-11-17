@@ -20,6 +20,7 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             mpSpotify.PlaylistService = new SpotifyPlaylistService();
             mpSpotify.SongService = new SpotifySongService();
             mpSpotify.BackgroundColor = tbSpotify.BackColor;
+
             // Youtube
             lpYoutube.LoginService = new YoutubeLoginService();
             mpYoutube.PlaylistService = new YoutubePlaylistService();

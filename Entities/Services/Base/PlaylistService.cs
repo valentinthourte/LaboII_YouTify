@@ -25,5 +25,11 @@ namespace Entities.Services.Base
 
         public abstract Task<List<PlaylistDTO>> GetPlaylistsForUser(User user);
         public abstract void CreatePlaylist(PlaylistDTO playlist);
+
+        public void AddSongsToPlaylist(PlaylistDTO selectedPlaylist, List<Song> songs, EPlatform platform)
+        {
+            PlaylistRepository.AddSongsToPlaylist(selectedPlaylist, songs, platform);
+        }
+        public abstract void AddSongsToPlaylist(PlaylistDTO selectedPlaylist, List<SongDTO> songs);
     }
 }

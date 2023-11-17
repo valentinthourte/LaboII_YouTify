@@ -1,4 +1,5 @@
 ﻿using EjercicioIntegrador2_YouTify.Interfaces;
+using EjercicioIntegrador2_YouTify.Model;
 using Entities.DTOs;
 using System.Data.SqlClient;
 
@@ -10,6 +11,7 @@ namespace Entities.Model
         private string name;
         private string iconFilePath;
         private string owner;
+
 
         public Playlist()
         {
@@ -35,12 +37,18 @@ namespace Entities.Model
             this.owner = dataReader["owner"].ToString();
         }
 
-        public string InsertFields()
+
+        public string GetSqlId()
+        {
+            return this.id;
+        }
+
+        public string GetInsertFields()
         {
             return $"name,owner,iconFilePath";
         }
 
-        public string InsertValues()
+        public string GetInsertValues()
         {
             return $"'{this.name}','{this.owner}','{this.iconFilePath}'";
         }
