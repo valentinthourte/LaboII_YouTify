@@ -40,17 +40,22 @@
             pdPlaylistDetail = new Controls.PlaylistDetail();
             btnFindSongs = new Button();
             btnNewPlaylist = new Button();
+            ctxmPlaylistOptions = new ContextMenuStrip(components);
+            miTransfer = new ToolStripMenuItem();
+            asdToolStripMenuItem = new ToolStripMenuItem();
+            miSynchronize = new ToolStripMenuItem();
             pnlPlaylistList.SuspendLayout();
             panel1.SuspendLayout();
+            ctxmPlaylistOptions.SuspendLayout();
             SuspendLayout();
             // 
             // pnlPlaylistList
             // 
             pnlPlaylistList.Controls.Add(lblNoPlaylists);
             pnlPlaylistList.Controls.Add(lvPlaylists);
-            pnlPlaylistList.Location = new Point(0, 77);
+            pnlPlaylistList.Location = new Point(0, 106);
             pnlPlaylistList.Name = "pnlPlaylistList";
-            pnlPlaylistList.Size = new Size(296, 543);
+            pnlPlaylistList.Size = new Size(296, 514);
             pnlPlaylistList.TabIndex = 0;
             // 
             // lblNoPlaylists
@@ -71,14 +76,15 @@
             listViewItem1.StateImageIndex = 1;
             lvPlaylists.Items.AddRange(new ListViewItem[] { listViewItem1, listViewItem2 });
             lvPlaylists.LargeImageList = ilPlaylistIcons;
-            lvPlaylists.Location = new Point(0, 0);
+            lvPlaylists.Location = new Point(1, -1);
             lvPlaylists.Name = "lvPlaylists";
-            lvPlaylists.Size = new Size(295, 620);
+            lvPlaylists.Size = new Size(295, 515);
             lvPlaylists.SmallImageList = ilPlaylistIcons;
             lvPlaylists.TabIndex = 1;
             lvPlaylists.TileSize = new Size(300, 32);
             lvPlaylists.UseCompatibleStateImageBehavior = false;
             lvPlaylists.View = View.Tile;
+            lvPlaylists.MouseClick += lvPlaylists_MouseClick;
             // 
             // ilPlaylistIcons
             // 
@@ -107,6 +113,7 @@
             // 
             pdPlaylistDetail.Location = new Point(3, 3);
             pdPlaylistDetail.Name = "pdPlaylistDetail";
+            pdPlaylistDetail.SecondaryColor = SystemColors.Control;
             pdPlaylistDetail.Size = new Size(993, 543);
             pdPlaylistDetail.TabIndex = 4;
             pdPlaylistDetail.Visible = false;
@@ -131,6 +138,33 @@
             btnNewPlaylist.UseVisualStyleBackColor = true;
             btnNewPlaylist.Click += btnNewPlaylist_Click;
             // 
+            // ctxmPlaylistOptions
+            // 
+            ctxmPlaylistOptions.Items.AddRange(new ToolStripItem[] { miTransfer, miSynchronize });
+            ctxmPlaylistOptions.Name = "ctxmPlaylistOptions";
+            ctxmPlaylistOptions.Size = new Size(181, 70);
+            // 
+            // miTransfer
+            // 
+            miTransfer.DropDownItems.AddRange(new ToolStripItem[] { asdToolStripMenuItem });
+            miTransfer.Name = "miTransfer";
+            miTransfer.Size = new Size(180, 22);
+            miTransfer.Text = "Transfer to";
+            miTransfer.Click += miTransfer_Click;
+            // 
+            // asdToolStripMenuItem
+            // 
+            asdToolStripMenuItem.Name = "asdToolStripMenuItem";
+            asdToolStripMenuItem.Size = new Size(180, 22);
+            asdToolStripMenuItem.Text = "New playlist";
+            // 
+            // miSynchronize
+            // 
+            miSynchronize.Enabled = false;
+            miSynchronize.Name = "miSynchronize";
+            miSynchronize.Size = new Size(180, 22);
+            miSynchronize.Text = "Synchronize with";
+            // 
             // MainPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -143,6 +177,7 @@
             Size = new Size(1288, 620);
             pnlPlaylistList.ResumeLayout(false);
             panel1.ResumeLayout(false);
+            ctxmPlaylistOptions.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -158,5 +193,9 @@
         private Controls.PlaylistDetail pdPlaylistDetail;
         private Button btnFindSongs;
         private Button btnNewPlaylist;
+        private ContextMenuStrip ctxmPlaylistOptions;
+        private ToolStripMenuItem miTransfer;
+        private ToolStripMenuItem miSynchronize;
+        private ToolStripMenuItem asdToolStripMenuItem;
     }
 }

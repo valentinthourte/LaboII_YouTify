@@ -17,7 +17,6 @@ namespace EjercicioIntegrador2_YouTify
         internal event OnAddToPlaylist onAddToPlaylist;
         internal event OnRemoveFromPlaylist onRemoveFromPlaylist;
 
-
         public Color SecondaryColor { get => this.lvSongList.BackColor; set => SetSecondaryColors(value); }
 
         private List<Song> SelectedSongs { get => GetSelectedSongs(); }

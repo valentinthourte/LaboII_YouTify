@@ -15,6 +15,7 @@ namespace EjercicioIntegrador2_YouTify
     {
         private User user;
         private List<Playlist> playlists = new();
+
         private PlaylistService playlistService;
 
         private Playlist ActivePlaylist { get => GetActivePlaylist(); }
@@ -44,8 +45,6 @@ namespace EjercicioIntegrador2_YouTify
             this.pdPlaylistDetail.SongService = value;
             this.ssSongSearch.Enter();
         }
-
-
 
         public Color SecondaryColor { get => this.lvPlaylists.BackColor; set => SetSecondaryColors(value); }
 
@@ -121,7 +120,7 @@ namespace EjercicioIntegrador2_YouTify
         {
             frmAddToPlaylist frmAddToPlaylist = new frmAddToPlaylist(this.playlists, songs);
             frmAddToPlaylist.ShowDialog();
-            if (frmAddToPlaylist.DialogResult  == DialogResult.OK)
+            if (frmAddToPlaylist.DialogResult == DialogResult.OK)
             {
                 this.playlistService.AddSongsToPlaylist(frmAddToPlaylist.SelectedPlaylist, songs.Select(s => (SongDTO)s).ToList());
             }
@@ -157,5 +156,22 @@ namespace EjercicioIntegrador2_YouTify
             this.ssSongSearch.Enabled = true;
             this.ssSongSearch.Visible = true;
         }
+
+        private void lvPlaylists_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (lvPlaylists.SelectedItems.Count > 0)
+                {
+                    ctxmPlaylistOptions.Show(lvPlaylists, e.Location);
+                }
+            }
+        }
+
+        private void miTransfer_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
