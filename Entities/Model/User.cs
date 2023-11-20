@@ -16,5 +16,10 @@ namespace EjercicioIntegrador2_YouTify.Model
         {
             this.name = c.Username;
         }
+        
+        public static implicit operator User(string name)
+        {
+            return new User(name);
+        }
     }
 }

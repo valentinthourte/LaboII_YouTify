@@ -24,12 +24,25 @@ namespace Entities.Services.Base
         }
 
         public abstract Task<List<PlaylistDTO>> GetPlaylistsForUser(User user);
-        public abstract void CreatePlaylist(PlaylistDTO playlist);
+        public abstract Task CreatePlaylist(PlaylistDTO playlist);
 
         public void AddSongsToPlaylist(PlaylistDTO selectedPlaylist, List<Song> songs, EPlatform platform)
         {
             PlaylistRepository.AddSongsToPlaylist(selectedPlaylist, songs, platform);
         }
         public abstract void AddSongsToPlaylist(PlaylistDTO selectedPlaylist, List<SongDTO> songs);
+
+        public abstract void ClonePlaylist(PlaylistDTO p, User destinationUser);
+        public async void ClonePlaylist(PlaylistDTO dto, User destinationUser, EPlatform basePlatform, EPlatform destinationPlatform)
+        {
+            Playlist playlist = dto;
+            List<Playlist> playlists = await this.GetPlaylistsForUserAndPlatform(destinationUser, destinationPlatform);
+            int repeatAmount = playlists.Where(p => p.NameMatches(dto.Name)).Count();
+            if (repeatAmount > 0)
+            {
+                playlist.UpdateName(repeatAmount);
+            }
+            PlaylistRepository.ClonePlaylist(playlist, destinationUser, basePlatform, destinationPlatform);
+        }
     }
 }

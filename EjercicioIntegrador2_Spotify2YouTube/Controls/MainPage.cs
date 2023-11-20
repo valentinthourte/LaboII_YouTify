@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Reflection.Metadata.Ecma335;
+using EjercicioIntegrador2_YouTify.Enums;
 using EjercicioIntegrador2_YouTify.Extensions;
 using EjercicioIntegrador2_YouTify.Helpers;
 using EjercicioIntegrador2_YouTify.Model;
@@ -13,6 +14,12 @@ namespace EjercicioIntegrador2_YouTify
 {
     public partial class MainPage : UserControl
     {
+
+        public delegate void TransferPlaylist(Playlist p, EPlatform platform);
+        public event TransferPlaylist OnTransferPlaylist;
+        private EPlatform platform;
+        public EPlatform Platform { set => this.platform = value; }
+
         private User user;
         private List<Playlist> playlists = new();
 
@@ -27,15 +34,26 @@ namespace EjercicioIntegrador2_YouTify
             {
                 playlist = this.playlists.ElementAt(this.lvPlaylists.SelectedIndices[0]);
             }
-            catch (IndexOutOfRangeException e)
+            catch (ArgumentOutOfRangeException e)
             {
                 playlist = null;
             }
             return playlist;
         }
 
+        public List<Playlist> Playlists { get => this.playlists; }
         public PlaylistService PlaylistService { set => this.playlistService = value; }
         public SongService SongService { set => InitializeSongSearch(value); }
+
+        public Color SecondaryColor { get => this.lvPlaylists.BackColor; set => SetSecondaryColors(value); }
+        public Color BackgroundColor
+        {
+            get => this.BackColor;
+            set
+            {
+                this.BackColor = value;
+            }
+        }
 
         private void InitializeSongSearch(SongService value)
         {
@@ -46,7 +64,6 @@ namespace EjercicioIntegrador2_YouTify
             this.ssSongSearch.Enter();
         }
 
-        public Color SecondaryColor { get => this.lvPlaylists.BackColor; set => SetSecondaryColors(value); }
 
         private void SetSecondaryColors(Color value)
         {
@@ -54,15 +71,6 @@ namespace EjercicioIntegrador2_YouTify
             this.lvPlaylists.ForeColor = ColorHelper.InvertColor(value);
             this.ssSongSearch.SecondaryColor = value;
             this.pdPlaylistDetail.SecondaryColor = value;
-        }
-
-        public Color BackgroundColor
-        {
-            get => this.BackColor;
-            set
-            {
-                this.BackColor = value;
-            }
         }
 
         public MainPage()
@@ -103,7 +111,7 @@ namespace EjercicioIntegrador2_YouTify
         private async void LoadPlaylistsForCurrentUser()
         {
             lvPlaylists.Items.Clear();
-            this.playlists = (await this.playlistService.GetPlaylistsForUser(this.user)).Select(p => (Playlist)p).ToList();
+            this.playlists = await GetPlaylistsForCurrentUser();
             if (this.playlists.Count == 0)
             {
                 lblNoPlaylists.Visible = true;
@@ -116,6 +124,12 @@ namespace EjercicioIntegrador2_YouTify
                 lvPlaylists.Items.AddRange(this.playlists.Select(playlist => playlist.ToListViewItem()).ToArray());
             }
         }
+
+        private async Task<List<Playlist>> GetPlaylistsForCurrentUser()
+        {
+            return (await this.playlistService.GetPlaylistsForUser(this.user)).Select(p => (Playlist)p).ToList();
+        }
+
         private void OnAddSongToPlaylist(List<Song> songs)
         {
             frmAddToPlaylist frmAddToPlaylist = new frmAddToPlaylist(this.playlists, songs);
@@ -143,9 +157,13 @@ namespace EjercicioIntegrador2_YouTify
             if (result == DialogResult.OK)
             {
                 PlaylistDTO dto = frmNewPlaylist.GetPlaylist(this.user);
-                this.playlistService.CreatePlaylist(dto);
-                this.LoadPlaylistsForCurrentUser();
+                AddNewPlaylist(dto);
             }
+        }
+        public async void AddNewPlaylist(Playlist p)
+        {
+            await this.playlistService.CreatePlaylist(p);
+            this.LoadPlaylistsForCurrentUser();
         }
 
         private void btnFindSongs_Click(object sender, EventArgs e)
@@ -170,8 +188,12 @@ namespace EjercicioIntegrador2_YouTify
 
         private void miTransfer_Click(object sender, EventArgs e)
         {
-
+            this.OnTransferPlaylist(this.ActivePlaylist, this.platform);
         }
 
+        internal void ClonePlaylist(Playlist p)
+        {
+            this.playlistService.ClonePlaylist(p, this.user);
+        }
     }
 }

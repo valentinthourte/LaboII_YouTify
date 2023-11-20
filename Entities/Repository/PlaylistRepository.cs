@@ -1,8 +1,10 @@
 ﻿using EjercicioIntegrador2_YouTify.Enums;
 using EjercicioIntegrador2_YouTify.Helpers;
 using EjercicioIntegrador2_YouTify.Model;
+using Entities.DTOs;
 using Entities.Model;
 using System.Data.SqlClient;
+using System.Runtime.CompilerServices;
 
 namespace EjercicioIntegrador2_YouTify.Repository
 {
@@ -14,7 +16,7 @@ namespace EjercicioIntegrador2_YouTify.Repository
             string query = QueryHelper.GetPlaylistsQuery(owner, tableName);
             List<Playlist> returnList = new List<Playlist>();
 
-            return (List<Playlist>)await DatabaseConnectionHelper.ExecuteSelectQuery<Playlist>(query);
+            return (List<Playlist>)await DatabaseHelper.ExecuteSelectQuery<Playlist>(query);
         }
         internal async static Task<List<Playlist>> GetPlaylists(string owner, EPlatform platform)
         {
@@ -31,7 +33,7 @@ namespace EjercicioIntegrador2_YouTify.Repository
             string tableName = $"{platform}Playlists";
             string query = QueryHelper.InsertEntityQuery(tableName, playlist);
 
-            await DatabaseConnectionHelper.ExecuteInsertQuery(query);
+            await DatabaseHelper.ExecuteInsertQuery(query);
             
         }
 
@@ -40,7 +42,25 @@ namespace EjercicioIntegrador2_YouTify.Repository
             string tableName = $"{platform}PlaylistSong";
             string query = QueryHelper.GetAddSongsToPlaylistQuery(tableName, selectedPlaylist, songs);
 
-            DatabaseConnectionHelper.ExecuteInsertQuery(query);
+            DatabaseHelper.ExecuteInsertQuery(query);
+
+        }
+
+        internal static async Task ClonePlaylist(Playlist playlist, User destinationUser, EPlatform basePlatform, EPlatform destinationPlatform)
+        {
+            try
+            {
+                await PlaylistRepository.CreatePlaylist(playlist, destinationPlatform);
+
+                Playlist createdPlaylist = (await PlaylistRepository.GetPlaylists(destinationUser, destinationPlatform)).Where(p => p.NameMatches(playlist)).First();
+                List<Song> transferableSongs = await SongRepository.GetSongsAvailableForTransfer(playlist, basePlatform);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"There was a problem cloning the playlist: {ex.Message}");
+            }
+
 
         }
     }

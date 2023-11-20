@@ -21,6 +21,10 @@ namespace EjercicioIntegrador2_YouTify
             InitializeComponent();
         }
 
+        private const string TEXT_SIGNUP_CREDENTIALS_INVALID = "That username is already in use.";
+        private const string TEXT_FIELDS_MUST_HAVE_VALUE = "Both username and password fields must have values.";
+        private const string TEXT_LOGIN_CREDENTIALS_INVALID = "Username or password was incorrect. Try again.";
+
 
         public event EventHandler LoginClick;
         public event EventHandler SignupClick;
@@ -28,8 +32,8 @@ namespace EjercicioIntegrador2_YouTify
         private int imgIndex = 0;
         private Color fontColor = Color.Black;
         private Credentials Credentials { get => new Credentials(tbUsername.Text, tbPassword.Text); }
-        private LoginService loginService;
-        public LoginService LoginService { set => loginService = value; }
+        private UserService loginService;
+        public UserService LoginService { set => loginService = value; }
 
 
         public Color FontColor
@@ -67,16 +71,48 @@ namespace EjercicioIntegrador2_YouTify
 
         public async Task<User> Login()
         {
-            var user = await this.loginService.Login(Credentials);
-            if (user is null)
+            User user = null;
+            try
             {
-                this.lblLoginError.Visible = true;
+                user = await this.loginService.Login(Credentials);
+                if (user is null)
+                {
+                    this.lblError.Text = TEXT_LOGIN_CREDENTIALS_INVALID;
+                    this.lblError.Visible = true;
+                }
+                else
+                {
+                    this.lblError.Visible = false;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                this.lblLoginError.Visible = false;
+                MessageBox.Show($"An error ocurred during login: {ex.Message}");
             }
 
+            return user;
+        }
+
+        public async Task<User> Signup()
+        {
+            User user = null;
+            try
+            {
+                user = await this.loginService.Signup(Credentials);
+                if (user is null)
+                {
+                    lblError.Text = TEXT_SIGNUP_CREDENTIALS_INVALID;
+                    lblError.Visible = true;
+                }
+                else
+                {
+                    this.lblError.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error ocurred during signup: {ex.Message}");
+            }
             return user;
         }
 
@@ -108,11 +144,34 @@ namespace EjercicioIntegrador2_YouTify
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            this.OnLoginClick(EventArgs.Empty);
+            if (tbUsername.Text == String.Empty || tbPassword.Text == string.Empty)
+            {
+                lblError.Text = TEXT_FIELDS_MUST_HAVE_VALUE;
+                lblError.Visible = true;
+            }
+            else
+            {
+                lblError.Visible = false;
+                this.OnLoginClick(EventArgs.Empty);
+            }
         }
         protected virtual void OnSignupClick(EventArgs e)
         {
             SignupClick?.Invoke(this, e);
+        }
+
+        private void btnSignUp_Click(object sender, EventArgs e)
+        {
+            if (tbUsername.Text == String.Empty || tbPassword.Text == string.Empty)
+            {
+                lblError.Text = TEXT_FIELDS_MUST_HAVE_VALUE;
+                lblError.Visible = true;
+            }
+            else
+            {
+                lblError.Visible = false;
+                this.OnSignupClick(EventArgs.Empty);
+            }
         }
     }
 }

@@ -11,11 +11,16 @@ using System.Threading.Tasks;
 
 namespace EjercicioIntegrador2_YouTify.Services.Youtube
 {
-    public class YoutubeLoginService : LoginService
+    public class YoutubeUserService : UserService
     {
         public async override Task<User> Login(Credentials credentials)
         {
             return await CredentialsRepository.CanLogin(credentials, EPlatform.Youtube);
+        }
+
+        public async override Task<User> Signup(Credentials credentials)
+        {
+            return await CredentialsRepository.SignUp(credentials, EPlatform.Youtube);
         }
     }
 }

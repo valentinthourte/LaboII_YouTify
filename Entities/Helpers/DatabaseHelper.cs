@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EjercicioIntegrador2_YouTify.Helpers
 {
-    public static class DatabaseConnectionHelper
+    public static class DatabaseHelper
     {
         public static string GetConnectionString()
         {
@@ -20,7 +20,7 @@ namespace EjercicioIntegrador2_YouTify.Helpers
         public async static Task<IEnumerable<T>> ExecuteSelectQuery<T>(string query) where T : IEntity, new()
         {
             List<T> returnList = new List<T>();
-            using (SqlConnection sql = new SqlConnection(DatabaseConnectionHelper.GetConnectionString()))
+            using (SqlConnection sql = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
                 try
                 {
@@ -49,7 +49,7 @@ namespace EjercicioIntegrador2_YouTify.Helpers
 
         internal static async Task ExecuteInsertQuery(string query)
         {
-            using (SqlConnection sql = new SqlConnection(DatabaseConnectionHelper.GetConnectionString()))
+            using (SqlConnection sql = new SqlConnection(DatabaseHelper.GetConnectionString()))
             {
                 try
                 {

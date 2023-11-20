@@ -90,7 +90,8 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             lpSpotify.Name = "lpSpotify";
             lpSpotify.Size = new Size(393, 524);
             lpSpotify.TabIndex = 0;
-            lpSpotify.LoginClick += OnSpotifyLoginClick;
+            lpSpotify.LoginClick += OnSpotifyLogin;
+            lpSpotify.SignupClick += OnSpotifySignup;
             // 
             // tbYoutube
             // 
@@ -140,6 +141,7 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             lpYoutube.Size = new Size(393, 524);
             lpYoutube.TabIndex = 0;
             lpYoutube.LoginClick += OnYoutubeLogin;
+            lpYoutube.SignupClick += OnYoutubeSignup;
             // 
             // tcTabs
             // 

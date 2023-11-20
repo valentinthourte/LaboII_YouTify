@@ -63,6 +63,9 @@ namespace EjercicioIntegrador2_YouTify.Helpers
             return $"select {fields} from {tableName} {joinClause} {whereClause}";
         }
 
-
+        internal static string InsertCredentialsQuery(string tableName, Credentials credentials)
+        {
+            return QueryHelper.InsertQuery(tableName, credentials.GetInsertFields(), $"({credentials.GetInsertValues()})");
+        }
     }
 }

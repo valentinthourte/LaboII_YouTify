@@ -41,7 +41,7 @@ namespace Entities.Model
 
         public string GetInsertValues()
         {
-            return $"{this.username},{this.password}";
+            return $"'{this.username}','{this.password}'";
         }
 
         public string GetSqlId()

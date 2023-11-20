@@ -37,6 +37,15 @@ namespace Entities.Model
             this.owner = dataReader["owner"].ToString();
         }
 
+        public bool NameMatches(string name)
+        {
+            return this.name == name;
+        }
+        public bool NameMatches(Playlist playlist)
+        {
+            return NameMatches(playlist.name);
+        }
+
 
         public string GetSqlId()
         {
@@ -51,6 +60,17 @@ namespace Entities.Model
         public string GetInsertValues()
         {
             return $"'{this.name}','{this.owner}','{this.iconFilePath}'";
+        }
+
+        internal void UpdateName(int repeatAmount)
+        {
+            string name = $"{this.name}_{repeatAmount}";
+            this.UpdateName(name);
+        }
+
+        internal void UpdateName(string name)
+        {
+            this.name = name;
         }
 
         public static implicit operator PlaylistDTO(Playlist playlist)

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             pnlCredenciales = new Panel();
-            lblLoginError = new Label();
+            lblError = new Label();
             btnSignUp = new Button();
             btnLogin = new Button();
             tbPassword = new TextBox();
@@ -42,7 +42,7 @@
             // pnlCredenciales
             // 
             pnlCredenciales.BorderStyle = BorderStyle.FixedSingle;
-            pnlCredenciales.Controls.Add(lblLoginError);
+            pnlCredenciales.Controls.Add(lblError);
             pnlCredenciales.Controls.Add(btnSignUp);
             pnlCredenciales.Controls.Add(btnLogin);
             pnlCredenciales.Controls.Add(tbPassword);
@@ -52,16 +52,16 @@
             pnlCredenciales.Size = new Size(305, 352);
             pnlCredenciales.TabIndex = 6;
             // 
-            // lblLoginError
+            // lblError
             // 
-            lblLoginError.AutoSize = true;
-            lblLoginError.ForeColor = Color.Red;
-            lblLoginError.Location = new Point(29, 213);
-            lblLoginError.Name = "lblLoginError";
-            lblLoginError.Size = new Size(256, 15);
-            lblLoginError.TabIndex = 7;
-            lblLoginError.Text = "Username or password was incorrect. Try again.";
-            lblLoginError.Visible = false;
+            lblError.ForeColor = Color.Red;
+            lblError.Location = new Point(29, 194);
+            lblError.Name = "lblError";
+            lblError.Size = new Size(256, 63);
+            lblError.TabIndex = 7;
+            lblError.Text = "Username or password was incorrect. Try again.";
+            lblError.TextAlign = ContentAlignment.MiddleCenter;
+            lblError.Visible = false;
             // 
             // btnSignUp
             // 
@@ -72,11 +72,12 @@
             btnSignUp.TabIndex = 4;
             btnSignUp.Text = "Sign Up";
             btnSignUp.UseVisualStyleBackColor = true;
+            btnSignUp.Click += btnSignUp_Click;
             // 
             // btnLogin
             // 
             btnLogin.ForeColor = Color.Black;
-            btnLogin.Location = new Point(113, 252);
+            btnLogin.Location = new Point(113, 260);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(75, 23);
             btnLogin.TabIndex = 3;
@@ -87,7 +88,7 @@
             // tbPassword
             // 
             tbPassword.ForeColor = Color.Black;
-            tbPassword.Location = new Point(48, 176);
+            tbPassword.Location = new Point(48, 156);
             tbPassword.Name = "tbPassword";
             tbPassword.PasswordChar = '*';
             tbPassword.PlaceholderText = "Password";
@@ -149,6 +150,6 @@
         private TextBox tbUsername;
         private Label lblLogin;
         private Label lblLogo;
-        private Label lblLoginError;
+        private Label lblError;
     }
 }
