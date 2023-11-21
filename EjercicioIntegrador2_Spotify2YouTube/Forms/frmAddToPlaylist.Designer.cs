@@ -40,6 +40,7 @@
             // 
             rtbSelectedSongs.Location = new Point(12, 38);
             rtbSelectedSongs.Name = "rtbSelectedSongs";
+            rtbSelectedSongs.ReadOnly = true;
             rtbSelectedSongs.Size = new Size(460, 293);
             rtbSelectedSongs.TabIndex = 0;
             rtbSelectedSongs.Text = "";

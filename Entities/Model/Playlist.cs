@@ -28,6 +28,9 @@ namespace Entities.Model
             this.iconFilePath = filePath;
             this.owner = owner;
         }
+        public Playlist(string id, string name, string filePath, User owner) : this(id, name, filePath, owner.Name)
+        {
+        }
         /// <summary>
         /// Initializes all attributes of an instance using an SqlDataReader.
         /// Specified in IEntity interface

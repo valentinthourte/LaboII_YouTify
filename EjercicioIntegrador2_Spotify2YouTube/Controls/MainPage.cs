@@ -213,6 +213,7 @@ namespace EjercicioIntegrador2_YouTify
             {
                 List<string> items = new List<string> { basePlaylist.Name };
                 frmAddToPlaylist frm = new frmAddToPlaylist(this.playlists, items);
+                frm.ListText = "Selected playlist";
 
                 DialogResult result = frm.ShowDialog();
                 if (result == DialogResult.OK)

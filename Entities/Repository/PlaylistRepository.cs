@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace EjercicioIntegrador2_YouTify.Repository
 {
-    internal class PlaylistRepository
+    public class PlaylistRepository
     {
         private async static Task<List<Playlist>> GetPlaylists(string owner, string platform)
         {
@@ -23,18 +23,17 @@ namespace EjercicioIntegrador2_YouTify.Repository
             return await GetPlaylists(owner, platform.ToString());
         }
 
-        internal static async Task<List<Playlist>> GetPlaylists(User user, EPlatform platform)
+        public static async Task<List<Playlist>> GetPlaylists(User user, EPlatform platform)
         {
             return await GetPlaylists(user.Name, platform);
         }
 
-        internal async static Task CreatePlaylist(Playlist playlist, EPlatform platform)
+        public async static Task CreatePlaylist(Playlist playlist, EPlatform platform)
         {
             string tableName = $"{platform}Playlists";
             string query = QueryHelper.InsertEntityQuery(tableName, playlist);
 
             await DatabaseHelper.ExecuteInsertQuery(query);
-            
         }
 
         internal static async Task AddSongsToPlaylist(Playlist selectedPlaylist, List<Song> songs, EPlatform platform)

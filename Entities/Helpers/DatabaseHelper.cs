@@ -1,12 +1,6 @@
 ﻿using EjercicioIntegrador2_YouTify.Interfaces;
-using EjercicioIntegrador2_YouTify.Model;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
+using Entities.Exceptions;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EjercicioIntegrador2_YouTify.Helpers
 {
@@ -70,7 +64,7 @@ namespace EjercicioIntegrador2_YouTify.Helpers
                 }
                 catch (Exception ex)
                 {
-                    throw;
+                    throw new EDatabaseInsertError($"There was an error executing insert query: {ex.GetType()}: {ex.Message}", ex);
                 }
             }
         }
