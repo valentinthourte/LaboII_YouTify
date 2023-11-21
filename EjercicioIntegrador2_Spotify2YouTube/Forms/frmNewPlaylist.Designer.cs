@@ -129,6 +129,7 @@
             Controls.Add(tbPlaylistName);
             Controls.Add(lblPlaylistName);
             Controls.Add(lblWarning);
+            MaximizeBox = false;
             Name = "frmNewPlaylist";
             Text = "New Playlist";
             ResumeLayout(false);

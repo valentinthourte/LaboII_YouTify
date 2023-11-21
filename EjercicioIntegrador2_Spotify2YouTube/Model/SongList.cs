@@ -13,6 +13,7 @@ namespace EjercicioIntegrador2_YouTify.Model
         internal SongList(List<Song> songs) 
         { 
             this.songs = songs;
+            this.originalSongs = songs;
         }
 
         internal SongList(List<SongDTO> songs)
@@ -21,6 +22,11 @@ namespace EjercicioIntegrador2_YouTify.Model
             this.originalSongs = this.songs;
         }
 
+        internal SongList()
+        {
+            this.songs = new();
+            this.originalSongs = new();
+        }
 
         public Song this[int index]
         {

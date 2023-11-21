@@ -7,7 +7,7 @@ namespace EjercicioIntegrador2_YouTify
 {
     public partial class SongSearch : UserControl
     {
-        private SongList songList;
+        private SongList songList = new();
         private SongService songService;
 
         public SongService SongsService { set => this.songService = value; }
@@ -24,7 +24,7 @@ namespace EjercicioIntegrador2_YouTify
 
         private List<Song> GetSelectedSongs()
         {
-            return songList.GetSongsByIndices(this.lvSongList.SelectedIndices.Cast<int>().ToList());
+            return songList.GetSongsByIndices(this.lvSongList.SelectedIndices.Cast<int>().Select(n => n + 1).ToList());
         }
 
         private void SetSecondaryColors(Color value)
@@ -35,12 +35,19 @@ namespace EjercicioIntegrador2_YouTify
 
         private void UpdateSongList(SongList songs)
         {
-            this.songList = songs;
-            if (songs is not null)
+            try
             {
-                lvSongList.Items.Clear();
-                List<ListViewItem> items = this.songList.GetListViewItems();
-                lvSongList.Items.AddRange(items.ToArray());
+                this.songList = songs;
+                if (songs is not null)
+                {
+                    lvSongList.Items.Clear();
+                    List<ListViewItem> items = this.songList.GetListViewItems();
+                    lvSongList.Items.AddRange(items.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -60,18 +67,35 @@ namespace EjercicioIntegrador2_YouTify
 
         public async void Enter()
         {
-            this.Enabled = true;
-            this.Visible = true;
-            this.Songs = new SongList(await this.songService.GetSongs());
+            try
+            {
+                this.Enabled = true;
+                this.Visible = true;
+                this.Songs = new SongList(await this.songService.GetSongs());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public async void SetActivePlaylist(Playlist playlist)
         {
-            var songs = (await this.songService.GetPlaylistSongs(playlist));
-            this.Songs = new SongList(songs);
+            try
+            {
+                var songs = (await this.songService.GetPlaylistSongs(playlist));
+                this.Songs = new SongList(songs);
 
-            this.Enabled = true;
-            this.Visible = true;
+                this.Enabled = true;
+                this.Visible = true;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+
         }
 
         private void tbSearch_KeyPress(object sender, KeyPressEventArgs e)

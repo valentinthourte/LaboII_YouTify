@@ -12,13 +12,18 @@ namespace EjercicioIntegrador2_YouTify.Repository
             string tableName = $"{platform}Songs";
             string query = QueryHelper.GetSongsQuery(tableName);
 
-            var songs = (List<Song>)await DatabaseHelper.ExecuteSelectQuery<Song>(query);
+            var songs = await SongRepository.GetSongsByQuery(query);
             return songs;
         }
 
         internal static Task<List<Song>> GetSongsAvailableForTransfer(Playlist playlist, EPlatform basePlatform)
         {
             throw new NotImplementedException("Clonación de playlists para más adelante :(");
+        }
+
+        internal static async Task<List<Song>> GetSongsByQuery(string query)
+        {
+            return (List<Song>)await DatabaseHelper.ExecuteSelectQuery<Song>(query);
         }
 
         internal static async Task<List<Song>> GetSongsForPlaylist(Playlist playlist, EPlatform platform)
@@ -28,7 +33,7 @@ namespace EjercicioIntegrador2_YouTify.Repository
             
             string query = QueryHelper.GetSongsForPlaylistQuery(songsTableName, relationTableName, playlist);
 
-            var songs = (List<Song>)await DatabaseHelper.ExecuteSelectQuery<Song>(query);
+            var songs = await SongRepository.GetSongsByQuery(query);
             return songs;
         }
     }

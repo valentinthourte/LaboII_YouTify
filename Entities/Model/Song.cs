@@ -1,6 +1,7 @@
 ﻿using EjercicioIntegrador2_YouTify.Interfaces;
 using Entities.DTOs;
 using System.Data.SqlClient;
+using System.Runtime.CompilerServices;
 
 namespace EjercicioIntegrador2_YouTify.Model
 {
@@ -55,6 +56,11 @@ namespace EjercicioIntegrador2_YouTify.Model
             song.artistName = dto.Artist;
             song.creationDate = dto.CreationDate;
             return song;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is not null && obj is Song && this.id == ((Song)obj).id;
         }
 
     }

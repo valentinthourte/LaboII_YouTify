@@ -96,21 +96,29 @@ namespace EjercicioIntegrador2_Spotify2YouTube
         }
 
 
-        private void OnTransferPlaylist(Playlist p, EPlatform platform)
+        private void OnTransferPlaylist(Playlist selectedPlaylist, EPlatform platform)
         {
-            switch (platform)
+            try
             {
-                case EPlatform.Spotify:
-                    {
-                        mpYoutube.ClonePlaylist(p);
-                        break;
-                    }
-                case EPlatform.Youtube:
-                    {
-                        mpSpotify.ClonePlaylist(p);
-                        break;
-                    }
+                switch (platform)
+                {
+                    case EPlatform.Spotify:
+                        {
+                            mpYoutube.ClonePlaylist(selectedPlaylist);
+                            break;
+                        }
+                    case EPlatform.Youtube:
+                        {
+                            mpSpotify.ClonePlaylist(selectedPlaylist);
+                            break;
+                        }
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }

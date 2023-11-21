@@ -32,17 +32,13 @@ namespace Entities.Services.Base
         }
         public abstract void AddSongsToPlaylist(PlaylistDTO selectedPlaylist, List<SongDTO> songs);
 
-        public abstract void ClonePlaylist(PlaylistDTO p, User destinationUser);
-        public async void ClonePlaylist(PlaylistDTO dto, User destinationUser, EPlatform basePlatform, EPlatform destinationPlatform)
+        public abstract void ClonePlaylist(PlaylistDTO basePlaylist, PlaylistDTO destinationPlaylist, User destinationUser);
+        public async void ClonePlaylist(PlaylistDTO basePlaylistDto, PlaylistDTO destinationPlaylistDto, User destinationUser, EPlatform basePlatform, EPlatform destinationPlatform)
         {
-            Playlist playlist = dto;
-            List<Playlist> playlists = await this.GetPlaylistsForUserAndPlatform(destinationUser, destinationPlatform);
-            int repeatAmount = playlists.Where(p => p.NameMatches(dto.Name)).Count();
-            if (repeatAmount > 0)
-            {
-                playlist.UpdateName(repeatAmount);
-            }
-            PlaylistRepository.ClonePlaylist(playlist, destinationUser, basePlatform, destinationPlatform);
+            Playlist basePlaylist = basePlaylistDto;
+            Playlist destination = destinationPlaylistDto; 
+            
+            await PlaylistRepository.ClonePlaylist(basePlaylist, destinationPlaylistDto, destinationUser, basePlatform, destinationPlatform);
         }
     }
 }

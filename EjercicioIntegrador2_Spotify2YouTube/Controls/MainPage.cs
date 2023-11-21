@@ -41,7 +41,7 @@ namespace EjercicioIntegrador2_YouTify
             return playlist;
         }
 
-        public List<Playlist> Playlists { get => this.playlists; }
+
         public PlaylistService PlaylistService { set => this.playlistService = value; }
         public SongService SongService { set => InitializeSongSearch(value); }
 
@@ -110,24 +110,37 @@ namespace EjercicioIntegrador2_YouTify
 
         private async void LoadPlaylistsForCurrentUser()
         {
-            lvPlaylists.Items.Clear();
-            this.playlists = await GetPlaylistsForCurrentUser();
-            if (this.playlists.Count == 0)
+            try
             {
-                lblNoPlaylists.Visible = true;
-            }
-            else
-            {
+                lvPlaylists.Items.Clear();
+                this.playlists = await GetPlaylistsForCurrentUser();
+                if (this.playlists.Count == 0)
+                {
+                    lblNoPlaylists.Visible = true;
+                }
+                else
+                {
 
-                lblNoPlaylists.Visible = false;
-                this.LoadPlaylistIcons(playlists);
-                lvPlaylists.Items.AddRange(this.playlists.Select(playlist => playlist.ToListViewItem()).ToArray());
+                    lblNoPlaylists.Visible = false;
+                    this.LoadPlaylistIcons(playlists);
+                    lvPlaylists.Items.AddRange(this.playlists.Select(playlist => playlist.ToListViewItem()).ToArray());
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private async Task<List<Playlist>> GetPlaylistsForCurrentUser()
         {
             return (await this.playlistService.GetPlaylistsForUser(this.user)).Select(p => (Playlist)p).ToList();
+        }
+
+        public async Task<List<Playlist>> GetPlaylistsForTransfer()
+        {
+            return this.playlists ?? await this.GetPlaylistsForCurrentUser();
         }
 
         private void OnAddSongToPlaylist(List<Song> songs)
@@ -188,12 +201,38 @@ namespace EjercicioIntegrador2_YouTify
 
         private void miTransfer_Click(object sender, EventArgs e)
         {
-            this.OnTransferPlaylist(this.ActivePlaylist, this.platform);
+            if (this.OnTransferPlaylist is not null)
+            {
+                this.OnTransferPlaylist(this.ActivePlaylist, this.platform);
+            }
         }
 
-        internal void ClonePlaylist(Playlist p)
+        internal void ClonePlaylist(Playlist basePlaylist)
         {
-            this.playlistService.ClonePlaylist(p, this.user);
+            if (this.playlists.Any())
+            {
+                List<string> items = new List<string> { basePlaylist.Name };
+                frmAddToPlaylist frm = new frmAddToPlaylist(this.playlists, items);
+
+                DialogResult result = frm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    Playlist selectedPlaylist = frm.SelectedPlaylist;
+                    try
+                    {
+                        this.playlistService.ClonePlaylist(basePlaylist, selectedPlaylist, this.user);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"There was an error transfering the playlist: {ex.Message}");
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception("You must log into every platform in order to transfer.");
+            }
+            
         }
     }
 }

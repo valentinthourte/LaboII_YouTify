@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             rtbSelectedSongs = new RichTextBox();
-            lblSongs = new Label();
+            lblItems = new Label();
             cbPlaylists = new ComboBox();
             lblSelectPlaylist = new Label();
             btnDone = new Button();
@@ -44,15 +44,15 @@
             rtbSelectedSongs.TabIndex = 0;
             rtbSelectedSongs.Text = "";
             // 
-            // lblSongs
+            // lblItems
             // 
-            lblSongs.AutoSize = true;
-            lblSongs.Location = new Point(199, 9);
-            lblSongs.Name = "lblSongs";
-            lblSongs.Size = new Size(88, 15);
-            lblSongs.TabIndex = 1;
-            lblSongs.Text = "Selected songs:";
-            lblSongs.TextAlign = ContentAlignment.MiddleCenter;
+            lblItems.AutoSize = true;
+            lblItems.Location = new Point(199, 9);
+            lblItems.Name = "lblItems";
+            lblItems.Size = new Size(88, 15);
+            lblItems.TabIndex = 1;
+            lblItems.Text = "Selected songs:";
+            lblItems.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // cbPlaylists
             // 
@@ -101,8 +101,10 @@
             Controls.Add(btnDone);
             Controls.Add(lblSelectPlaylist);
             Controls.Add(cbPlaylists);
-            Controls.Add(lblSongs);
+            Controls.Add(lblItems);
             Controls.Add(rtbSelectedSongs);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "frmAddToPlaylist";
             Text = "Add to playlist";
             ResumeLayout(false);
@@ -112,7 +114,7 @@
         #endregion
 
         private RichTextBox rtbSelectedSongs;
-        private Label lblSongs;
+        private Label lblItems;
         private ComboBox cbPlaylists;
         private Label lblSelectPlaylist;
         private Button btnDone;

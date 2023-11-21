@@ -37,31 +37,39 @@ namespace EjercicioIntegrador2_YouTify.Repository
             
         }
 
-        internal static void AddSongsToPlaylist(Playlist selectedPlaylist, List<Song> songs, EPlatform platform)
+        internal static async Task AddSongsToPlaylist(Playlist selectedPlaylist, List<Song> songs, EPlatform platform)
         {
-            string tableName = $"{platform}PlaylistSong";
-            string query = QueryHelper.GetAddSongsToPlaylistQuery(tableName, selectedPlaylist, songs);
+            List<Song> playlistSongs = await SongRepository.GetSongsForPlaylist(selectedPlaylist, platform);
+            List<Song> songsToAdd = songs.Where(s => !playlistSongs.Contains(s)).ToList(); // I use contains because I override Equals method in Song class
+            if (songsToAdd.Count > 0)
+            {
+                string tableName = $"{platform}PlaylistSong";
+                string query = QueryHelper.GetAddSongsToPlaylistQuery(tableName, selectedPlaylist, songsToAdd);
 
-            DatabaseHelper.ExecuteInsertQuery(query);
-
+                await DatabaseHelper.ExecuteInsertQuery(query);
+            }
         }
 
-        internal static async Task ClonePlaylist(Playlist playlist, User destinationUser, EPlatform basePlatform, EPlatform destinationPlatform)
+        private static async Task TransferPlaylist(EPlatform basePlatform, EPlatform destinationPlatform, List<Song> songList, Playlist destinationPlaylist)
+        {
+            string query = QueryHelper.GetTransferableSongs(basePlatform, destinationPlatform, songList);
+            List<Song> songs = await SongRepository.GetSongsByQuery(query);
+
+            await PlaylistRepository.AddSongsToPlaylist(destinationPlaylist, songs, destinationPlatform);
+        }
+
+        internal static async Task ClonePlaylist(Playlist basePlaylist, Playlist destinationPlaylist, User destinationUser, EPlatform basePlatform, EPlatform destinationPlatform)
         {
             try
             {
-                await PlaylistRepository.CreatePlaylist(playlist, destinationPlatform);
+                List<Song> basePlaylistSongs = await SongRepository.GetSongsForPlaylist(basePlaylist, basePlatform);
 
-                Playlist createdPlaylist = (await PlaylistRepository.GetPlaylists(destinationUser, destinationPlatform)).Where(p => p.NameMatches(playlist)).First();
-                List<Song> transferableSongs = await SongRepository.GetSongsAvailableForTransfer(playlist, basePlatform);
-
+                await PlaylistRepository.TransferPlaylist(basePlatform, destinationPlatform, basePlaylistSongs, destinationPlaylist);
             }
             catch (Exception ex)
             {
                 throw new Exception($"There was a problem cloning the playlist: {ex.Message}");
             }
-
-
         }
     }
 }

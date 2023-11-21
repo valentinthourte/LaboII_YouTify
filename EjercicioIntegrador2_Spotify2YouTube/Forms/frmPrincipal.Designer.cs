@@ -35,12 +35,12 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPrincipal));
             ilLogos = new ImageList(components);
             tbSpotify = new TabPage();
-            mpSpotify = new MainPage();
             lpSpotify = new LoginPanel();
+            mpSpotify = new MainPage();
             tbYoutube = new TabPage();
-            mpYoutube = new MainPage();
-            ssYoutubeSongs = new SongSearch();
             lpYoutube = new LoginPanel();
+            ssYoutubeSongs = new SongSearch();
+            mpYoutube = new MainPage();
             tcTabs = new TabControl();
             tbSpotify.SuspendLayout();
             tbYoutube.SuspendLayout();
@@ -67,6 +67,21 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             tbSpotify.TabIndex = 1;
             tbSpotify.Text = "Spotify";
             // 
+            // lpSpotify
+            // 
+            lpSpotify.BackColor = Color.Transparent;
+            lpSpotify.FontColor = Color.White;
+            lpSpotify.ForeColor = Color.White;
+            lpSpotify.ImgIndex = 1;
+            lpSpotify.ImgList = ilLogos;
+            lpSpotify.IsLogged = false;
+            lpSpotify.Location = new Point(450, 26);
+            lpSpotify.Name = "lpSpotify";
+            lpSpotify.Size = new Size(393, 524);
+            lpSpotify.TabIndex = 0;
+            lpSpotify.LoginClick += OnSpotifyLogin;
+            lpSpotify.SignupClick += OnSpotifySignup;
+            // 
             // mpSpotify
             // 
             mpSpotify.BackColor = Color.FromArgb(22, 22, 22);
@@ -78,20 +93,6 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             mpSpotify.Size = new Size(1288, 620);
             mpSpotify.TabIndex = 1;
             mpSpotify.Visible = false;
-            // 
-            // lpSpotify
-            // 
-            lpSpotify.BackColor = Color.Transparent;
-            lpSpotify.FontColor = Color.White;
-            lpSpotify.ForeColor = Color.White;
-            lpSpotify.ImgIndex = 1;
-            lpSpotify.ImgList = ilLogos;
-            lpSpotify.Location = new Point(450, 26);
-            lpSpotify.Name = "lpSpotify";
-            lpSpotify.Size = new Size(393, 524);
-            lpSpotify.TabIndex = 0;
-            lpSpotify.LoginClick += OnSpotifyLogin;
-            lpSpotify.SignupClick += OnSpotifySignup;
             // 
             // tbYoutube
             // 
@@ -106,6 +107,31 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             tbYoutube.TabIndex = 0;
             tbYoutube.Text = "Youtube";
             // 
+            // lpYoutube
+            // 
+            lpYoutube.BackColor = Color.WhiteSmoke;
+            lpYoutube.FontColor = Color.Black;
+            lpYoutube.ForeColor = Color.Black;
+            lpYoutube.ImgIndex = 0;
+            lpYoutube.ImgList = ilLogos;
+            lpYoutube.IsLogged = false;
+            lpYoutube.Location = new Point(450, 26);
+            lpYoutube.Name = "lpYoutube";
+            lpYoutube.Size = new Size(393, 524);
+            lpYoutube.TabIndex = 0;
+            lpYoutube.LoginClick += OnYoutubeLogin;
+            lpYoutube.SignupClick += OnYoutubeSignup;
+            // 
+            // ssYoutubeSongs
+            // 
+            ssYoutubeSongs.Enabled = false;
+            ssYoutubeSongs.Location = new Point(295, 77);
+            ssYoutubeSongs.Name = "ssYoutubeSongs";
+            ssYoutubeSongs.SecondaryColor = SystemColors.Window;
+            ssYoutubeSongs.Size = new Size(993, 543);
+            ssYoutubeSongs.TabIndex = 1;
+            ssYoutubeSongs.Visible = false;
+            // 
             // mpYoutube
             // 
             mpYoutube.BackColor = Color.WhiteSmoke;
@@ -118,30 +144,6 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             mpYoutube.Size = new Size(1288, 620);
             mpYoutube.TabIndex = 1;
             mpYoutube.Visible = false;
-            // 
-            // ssYoutubeSongs
-            // 
-            ssYoutubeSongs.Enabled = false;
-            ssYoutubeSongs.Location = new Point(295, 77);
-            ssYoutubeSongs.Name = "ssYoutubeSongs";
-            ssYoutubeSongs.SecondaryColor = SystemColors.Window;
-            ssYoutubeSongs.Size = new Size(993, 543);
-            ssYoutubeSongs.TabIndex = 1;
-            ssYoutubeSongs.Visible = false;
-            // 
-            // lpYoutube
-            // 
-            lpYoutube.BackColor = Color.WhiteSmoke;
-            lpYoutube.FontColor = Color.Black;
-            lpYoutube.ForeColor = Color.Black;
-            lpYoutube.ImgIndex = 0;
-            lpYoutube.ImgList = ilLogos;
-            lpYoutube.Location = new Point(450, 26);
-            lpYoutube.Name = "lpYoutube";
-            lpYoutube.Size = new Size(393, 524);
-            lpYoutube.TabIndex = 0;
-            lpYoutube.LoginClick += OnYoutubeLogin;
-            lpYoutube.SignupClick += OnYoutubeSignup;
             // 
             // tcTabs
             // 
@@ -162,6 +164,7 @@ namespace EjercicioIntegrador2_Spotify2YouTube
             ClientSize = new Size(1289, 639);
             Controls.Add(tcTabs);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "frmPrincipal";
             Text = "YouTify";
             tbSpotify.ResumeLayout(false);

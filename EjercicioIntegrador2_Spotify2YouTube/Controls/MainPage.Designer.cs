@@ -42,7 +42,6 @@
             btnNewPlaylist = new Button();
             ctxmPlaylistOptions = new ContextMenuStrip(components);
             miTransfer = new ToolStripMenuItem();
-            asdToolStripMenuItem = new ToolStripMenuItem();
             miSynchronize = new ToolStripMenuItem();
             pnlPlaylistList.SuspendLayout();
             panel1.SuspendLayout();
@@ -146,17 +145,10 @@
             // 
             // miTransfer
             // 
-            miTransfer.DropDownItems.AddRange(new ToolStripItem[] { asdToolStripMenuItem });
             miTransfer.Name = "miTransfer";
             miTransfer.Size = new Size(180, 22);
             miTransfer.Text = "Transfer to";
             miTransfer.Click += miTransfer_Click;
-            // 
-            // asdToolStripMenuItem
-            // 
-            asdToolStripMenuItem.Name = "asdToolStripMenuItem";
-            asdToolStripMenuItem.Size = new Size(180, 22);
-            asdToolStripMenuItem.Text = "New playlist";
             // 
             // miSynchronize
             // 
@@ -196,6 +188,5 @@
         private ContextMenuStrip ctxmPlaylistOptions;
         private ToolStripMenuItem miTransfer;
         private ToolStripMenuItem miSynchronize;
-        private ToolStripMenuItem asdToolStripMenuItem;
     }
 }

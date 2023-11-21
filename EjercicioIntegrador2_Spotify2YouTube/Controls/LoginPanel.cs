@@ -25,6 +25,7 @@ namespace EjercicioIntegrador2_YouTify
         private const string TEXT_FIELDS_MUST_HAVE_VALUE = "Both username and password fields must have values.";
         private const string TEXT_LOGIN_CREDENTIALS_INVALID = "Username or password was incorrect. Try again.";
 
+        public bool IsLogged { get; set; } = false;
 
         public event EventHandler LoginClick;
         public event EventHandler SignupClick;
@@ -82,6 +83,7 @@ namespace EjercicioIntegrador2_YouTify
                 }
                 else
                 {
+                    this.IsLogged = true;
                     this.lblError.Visible = false;
                 }
             }
@@ -106,6 +108,7 @@ namespace EjercicioIntegrador2_YouTify
                 }
                 else
                 {
+                    this.IsLogged = true;
                     this.lblError.Visible = false;
                 }
             }

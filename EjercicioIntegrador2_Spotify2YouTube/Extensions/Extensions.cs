@@ -4,6 +4,11 @@ namespace EjercicioIntegrador2_YouTify.Extensions
 {
     internal static class Extensions
     {
+        /// <summary>
+        /// Extends Song class to add 
+        /// </summary>
+        /// <param name="song"></param>
+        /// <returns></returns>
         public static ListViewItem ToListViewItem(this Song song)
         {
             ListViewItem item = new ListViewItem(song.Name);

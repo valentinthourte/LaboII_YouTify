@@ -1,33 +1,34 @@
 ﻿using EjercicioIntegrador2_YouTify.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace YouTify.Forms
 {
     public partial class frmAddToPlaylist : Form
     {
         private List<Playlist> playlists;
-        private List<Song> selectedSongs;
-
+        private List<string> selectedItems;
         public Playlist SelectedPlaylist { get => this.playlists.Where(p => p.Name == this.cbPlaylists.SelectedItem.ToString()).FirstOrDefault(); }
+
+        public string ListText { get => this.lblItems.Text; set => this.lblItems.Text = value; }
+
         public frmAddToPlaylist(List<Playlist> playlists, List<Song> selectedSongs)
         {
             InitializeComponent();
             this.playlists = playlists;
-            this.selectedSongs = selectedSongs;
+            this.selectedItems = selectedSongs.Select(s => s.Name).ToList();
+            InitializeControls();
+        }
+        public frmAddToPlaylist(List<Playlist> playlists, List<string> selectedItems)
+        {
+            InitializeComponent();
+            this.playlists = playlists;
+            this.selectedItems = selectedItems;
             InitializeControls();
         }
 
         private void InitializeControls()
         {
-            this.rtbSelectedSongs.Lines = this.selectedSongs.Select(s => s.Name).ToArray();
+            this.rtbSelectedSongs.Lines = this.selectedItems.ToArray();
             this.cbPlaylists.DataSource = this.playlists.Select(p => p.Name).ToList();
         }
 

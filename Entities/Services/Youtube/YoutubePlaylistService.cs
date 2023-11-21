@@ -16,9 +16,9 @@ namespace EjercicioIntegrador2_YouTify.Services.Youtube
             base.AddSongsToPlaylist(selectedPlaylist, songs.Select(s => (Song)s).ToList(), EPlatform.Youtube);
         }
 
-        public override void ClonePlaylist(PlaylistDTO p, User destinationUser)
+        public override void ClonePlaylist(PlaylistDTO basePlaylist, PlaylistDTO destinationPlaylist, User destinationUser)
         {
-            base.ClonePlaylist(p, destinationUser, EPlatform.Youtube, EPlatform.Spotify);
+            base.ClonePlaylist(basePlaylist, destinationPlaylist, destinationUser, EPlatform.Spotify, EPlatform.Youtube);
         }
 
         public async override Task CreatePlaylist(PlaylistDTO playlist)

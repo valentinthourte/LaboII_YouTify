@@ -16,7 +16,6 @@ namespace EjercicioIntegrador2_YouTify.Controls
 {
     public partial class PlaylistDetail : UserControl
     {
-        private Playlist playlist;
 
         internal Playlist ActivePlaylist { set => SetActivePlaylist(value); }
 
@@ -38,17 +37,24 @@ namespace EjercicioIntegrador2_YouTify.Controls
 
         private void SetActivePlaylist(Playlist playlist)
         {
-            this.playlist = playlist;
             if (playlist is not null)
             {
-                playlist.GetPlaylistInformation(out string playlistName, out string playlistOwner);
-                this.lblPlaylistName.Text = playlistName;
-                this.lblPlaylistOwner.Text = playlistOwner;
+                try
+                {
+                    playlist.GetPlaylistInformation(out string playlistName, out string playlistOwner);
+                    this.lblPlaylistName.Text = playlistName;
+                    this.lblPlaylistOwner.Text = playlistOwner;
 
-                this.ssPlaylistSongs.SetActivePlaylist(playlist);
+                    this.ssPlaylistSongs.SetActivePlaylist(playlist);
 
-                this.Visible = true;
-                this.Enabled = true;
+                    this.Visible = true;
+                    this.Enabled = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using EjercicioIntegrador2_YouTify.Interfaces;
+﻿using EjercicioIntegrador2_YouTify.Enums;
+using EjercicioIntegrador2_YouTify.Interfaces;
 using EjercicioIntegrador2_YouTify.Model;
 using Entities.DTOs;
 using Entities.Model;
@@ -66,6 +67,18 @@ namespace EjercicioIntegrador2_YouTify.Helpers
         internal static string InsertCredentialsQuery(string tableName, Credentials credentials)
         {
             return QueryHelper.InsertQuery(tableName, credentials.GetInsertFields(), $"({credentials.GetInsertValues()})");
+        }
+
+        internal static string GetTransferableSongs(EPlatform basePlatform, EPlatform destinationPlatform, List<Song> songList)
+        {
+            string destinationTableName = $"{destinationPlatform}Songs";
+            string baseTableName = $"{basePlatform}Songs";
+            string joinClause = $"join {destinationTableName} on {baseTableName}.songId = {destinationTableName}.songId join songs on songs.id = {destinationTableName}.songId";
+
+            List<string> stringIds = songList.Select(s => s.GetSqlId()).ToList();
+            string whereClause = $"where {destinationTableName}.songId in ({string.Join(',', stringIds)})";
+
+            return QueryHelper.GetSelectQueryForTableWithFilterWithJoinClause(baseTableName, whereClause, joinClause);
         }
     }
 }
