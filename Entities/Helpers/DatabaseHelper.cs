@@ -14,9 +14,15 @@ namespace EjercicioIntegrador2_YouTify.Helpers
     {
         public static string GetConnectionString()
         {
-            return "Server=DESKTOP-GBUDS7S\\SQLEXPRESS;Database=YouTify;User Id=sa;Password=Axoft2010;";//FileHelper.ReadConnectionString();
+            return FileHelper.ReadConnectionString();
         }
-
+        /// <summary>
+        /// Executes a reader-type query recieved by parameter to the database specified in DatabaseHelper.GetConnectionString()
+        /// and returns a List of obtained values mapped to an IEntity type class
+        /// </summary>
+        /// <typeparam name="T">Has to implement IEntity, will be type of return list</typeparam>
+        /// <param name="query">SQL query to execute against the database.</param>
+        /// <returns>A list of T objects</returns>
         public async static Task<IEnumerable<T>> ExecuteSelectQuery<T>(string query) where T : IEntity, new()
         {
             List<T> returnList = new List<T>();

@@ -28,7 +28,11 @@ namespace Entities.Model
             this.iconFilePath = filePath;
             this.owner = owner;
         }
-
+        /// <summary>
+        /// Initializes all attributes of an instance using an SqlDataReader.
+        /// Specified in IEntity interface
+        /// </summary>
+        /// <param name="dataReader">Data reader with object information</param>
         public void MapFromDatabase(SqlDataReader dataReader)
         {
             this.id = dataReader["id"].ToString();
@@ -51,12 +55,18 @@ namespace Entities.Model
         {
             return this.id;
         }
-
+        /// <summary>
+        /// Returns string to insert in SQL query, containing field names
+        /// </summary>
+        /// <returns></returns>
         public string GetInsertFields()
         {
             return $"name,owner,iconFilePath";
         }
-
+        /// <summary>
+        /// Returns string to insert in SQL query, containing field values
+        /// </summary>
+        /// <returns></returns>
         public string GetInsertValues()
         {
             return $"'{this.name}','{this.owner}','{this.iconFilePath}'";

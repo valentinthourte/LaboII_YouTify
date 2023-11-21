@@ -34,6 +34,7 @@
             ctxmSongContextMenu = new ContextMenuStrip(components);
             miAddSongToPlaylist = new ToolStripMenuItem();
             miRemove = new ToolStripMenuItem();
+            btnExport = new Button();
             ctxmSongContextMenu.SuspendLayout();
             SuspendLayout();
             // 
@@ -59,12 +60,12 @@
             // 
             ctxmSongContextMenu.Items.AddRange(new ToolStripItem[] { miAddSongToPlaylist, miRemove });
             ctxmSongContextMenu.Name = "ctxmSongContextMenu";
-            ctxmSongContextMenu.Size = new Size(181, 70);
+            ctxmSongContextMenu.Size = new Size(151, 48);
             // 
             // miAddSongToPlaylist
             // 
             miAddSongToPlaylist.Name = "miAddSongToPlaylist";
-            miAddSongToPlaylist.Size = new Size(180, 22);
+            miAddSongToPlaylist.Size = new Size(150, 22);
             miAddSongToPlaylist.Text = "Add to playlist";
             miAddSongToPlaylist.Click += miAddSongToPlaylist_Click;
             // 
@@ -72,13 +73,24 @@
             // 
             miRemove.Enabled = false;
             miRemove.Name = "miRemove";
-            miRemove.Size = new Size(180, 22);
+            miRemove.Size = new Size(150, 22);
             miRemove.Text = "Remove";
+            // 
+            // btnExport
+            // 
+            btnExport.Location = new Point(885, 2);
+            btnExport.Name = "btnExport";
+            btnExport.Size = new Size(75, 23);
+            btnExport.TabIndex = 2;
+            btnExport.Text = "Export to...";
+            btnExport.UseVisualStyleBackColor = true;
+            btnExport.Click += btnExport_Click;
             // 
             // SongSearch
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(btnExport);
             Controls.Add(tbSearch);
             Controls.Add(lvSongList);
             Name = "SongSearch";
@@ -95,5 +107,6 @@
         private ContextMenuStrip ctxmSongContextMenu;
         private ToolStripMenuItem miAddSongToPlaylist;
         private ToolStripMenuItem miRemove;
+        private Button btnExport;
     }
 }

@@ -32,7 +32,7 @@ namespace YouTify
             }
             else
             {
-                lblWarning.Visible = false; 
+                lblWarning.Visible = false;
                 lblMustInsertName.Visible = false;
                 this.DialogResult = DialogResult.OK;
                 this.Close();

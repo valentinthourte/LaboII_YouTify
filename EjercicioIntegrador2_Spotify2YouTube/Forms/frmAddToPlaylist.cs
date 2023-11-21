@@ -16,7 +16,7 @@ namespace YouTify.Forms
         private List<Playlist> playlists;
         private List<Song> selectedSongs;
 
-        public Playlist SelectedPlaylist { get => this.playlists.Where(p => p.Name == this.cbPlaylists.SelectedItem.ToString()).FirstOrDefault() ; }
+        public Playlist SelectedPlaylist { get => this.playlists.Where(p => p.Name == this.cbPlaylists.SelectedItem.ToString()).FirstOrDefault(); }
         public frmAddToPlaylist(List<Playlist> playlists, List<Song> selectedSongs)
         {
             InitializeComponent();

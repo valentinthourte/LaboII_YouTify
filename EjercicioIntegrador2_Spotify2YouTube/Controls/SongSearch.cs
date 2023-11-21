@@ -1,6 +1,7 @@
 ﻿using EjercicioIntegrador2_YouTify.Helpers;
 using EjercicioIntegrador2_YouTify.Model;
 using EjercicioIntegrador2_YouTify.Services.Base;
+using Entities.Services.Base;
 
 namespace EjercicioIntegrador2_YouTify
 {
@@ -94,6 +95,16 @@ namespace EjercicioIntegrador2_YouTify
                 {
                     ctxmSongContextMenu.Show(lvSongList, e.Location);
                 }
+            }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            string destination = Path.Combine(Directory.GetCurrentDirectory(), "songs.json");
+            DialogResult result = MessageBox.Show($"Song data will be exported as json to ${destination}. Are you sure you want to continue?", "Export", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                this.songList.SerializeTo(destination);
             }
         }
     }

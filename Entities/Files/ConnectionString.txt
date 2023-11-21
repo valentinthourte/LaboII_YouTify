@@ -1,0 +1,1 @@
+Server=DESKTOP-GBUDS7S\SQLEXPRESS;Database=YouTify;User Id=sa;Password=Axoft2010;

@@ -1,5 +1,6 @@
 ﻿using EjercicioIntegrador2_YouTify.Extensions;
 using Entities.DTOs;
+using Entities.Services.Base;
 using System.CodeDom;
 
 namespace EjercicioIntegrador2_YouTify.Model
@@ -57,6 +58,11 @@ namespace EjercicioIntegrador2_YouTify.Model
         internal void Update(List<Song> songs)
         {
             throw new NotImplementedException();
+        }
+
+        internal void SerializeTo(string destination)
+        {
+            SerializeService.ToJson(this.songs.Select(s => (SongDTO)s).ToList(), destination);
         }
     }
 }
