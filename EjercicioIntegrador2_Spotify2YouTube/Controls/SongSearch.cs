@@ -121,7 +121,15 @@ namespace EjercicioIntegrador2_YouTify
                 }
             }
         }
-
+        /// <summary>
+        /// Se implementó serialización de objetos tipo Song dentro del control
+        /// personalizado “SongSearch”, a través de un botón de exportación que
+        /// serializará y guardará en formato json las canciones presentes en dicho
+        /// SongSearch. El archivo será guardado en el directorio de ejecución de la
+        /// aplicación.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnExport_Click(object sender, EventArgs e)
         {
             string destination = Path.Combine(Directory.GetCurrentDirectory(), "songs.json");

@@ -47,6 +47,13 @@ namespace EjercicioIntegrador2_YouTify.Helpers
             return returnList;
         }
 
+        /// <summary>
+        /// Ejecuta una query de inserción a la base de datos referida en DatabaseHelper.GetConnectionString()
+        /// y levanta una excepción de tipo "EDatabaseInsertError" ante un error en la ejecución de la consulta
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        /// <exception cref="EDatabaseInsertError"></exception>
         internal static async Task ExecuteInsertQuery(string query)
         {
             using (SqlConnection sql = new SqlConnection(DatabaseHelper.GetConnectionString()))

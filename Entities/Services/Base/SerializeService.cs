@@ -11,6 +11,11 @@ namespace Entities.Services.Base
 {
     public static class SerializeService
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="songs"></param>
+        /// <param name="destination"></param>
         public static void ToJson(List<SongDTO> songs, string destination)
         {
             string json = JsonSerializer.Serialize(songs);

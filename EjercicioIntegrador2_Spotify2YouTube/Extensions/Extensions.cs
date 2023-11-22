@@ -1,11 +1,17 @@
 ﻿using EjercicioIntegrador2_YouTify.Model;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace EjercicioIntegrador2_YouTify.Extensions
 {
     internal static class Extensions
     {
         /// <summary>
-        /// Extends Song class to add 
+        /// Se implementan métodos de extensión en el proyecto de Windows Forms, para
+        /// las clases “Song” y “Playlist”. Estos métodos se utilizan para transformar un
+        //  objeto de estos tipos a un tipo “ListViewItem”, utilizado por el control ListView,
+        // para mostrar dichos objetos en formato lista.Dichos métodos están
+        // implementados en la clase “Extensions”
+
         /// </summary>
         /// <param name="song"></param>
         /// <returns></returns>
