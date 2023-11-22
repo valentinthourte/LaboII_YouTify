@@ -136,7 +136,14 @@ namespace EjercicioIntegrador2_YouTify
             DialogResult result = MessageBox.Show($"Song data will be exported as json to ${destination}. Are you sure you want to continue?", "Export", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                this.songList.SerializeTo(destination);
+                try
+                {
+                    this.songList.SerializeTo(destination);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
     }

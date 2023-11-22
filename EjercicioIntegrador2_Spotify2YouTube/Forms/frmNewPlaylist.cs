@@ -15,7 +15,6 @@ namespace YouTify
     public partial class frmNewPlaylist : Form
     {
         private string PlaylistName { get => tbPlaylistName.Text; }
-        private string PlaylistIconPath { get => tbIconFilePath.Text; }
 
         public frmNewPlaylist()
         {

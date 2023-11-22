@@ -12,6 +12,10 @@ using YouTify.Forms;
 
 namespace EjercicioIntegrador2_YouTify
 {
+    /// <summary>
+    /// User control shown when user logs in, and controls the user's playlists as well as playlist/available songs
+    /// through SongSearch User control
+    /// </summary>
     public partial class MainPage : UserControl
     {
 
@@ -38,7 +42,12 @@ namespace EjercicioIntegrador2_YouTify
             {
                 playlist = null;
             }
-            return playlist;
+            catch (Exception ex)
+            {
+                playlist = null;
+                MessageBox.Show(ex.Message);
+            }
+            return playlist ;
         }
 
 
@@ -140,7 +149,15 @@ namespace EjercicioIntegrador2_YouTify
 
         public async Task<List<Playlist>> GetPlaylistsForTransfer()
         {
-            return this.playlists ?? await this.GetPlaylistsForCurrentUser();
+            try
+            {
+                return this.playlists ?? await this.GetPlaylistsForCurrentUser();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return new();
+            }
         }
 
         private void OnAddSongToPlaylist(List<Song> songs)
@@ -149,7 +166,14 @@ namespace EjercicioIntegrador2_YouTify
             frmAddToPlaylist.ShowDialog();
             if (frmAddToPlaylist.DialogResult == DialogResult.OK)
             {
-                this.playlistService.AddSongsToPlaylist(frmAddToPlaylist.SelectedPlaylist, songs.Select(s => (SongDTO)s).ToList());
+                try
+                {
+                    this.playlistService.AddSongsToPlaylist(frmAddToPlaylist.SelectedPlaylist, songs.Select(s => (SongDTO)s).ToList());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -175,8 +199,15 @@ namespace EjercicioIntegrador2_YouTify
         }
         public async void AddNewPlaylist(Playlist p)
         {
-            await this.playlistService.CreatePlaylist(p);
-            this.LoadPlaylistsForCurrentUser();
+            try
+            {
+                await this.playlistService.CreatePlaylist(p);
+                this.LoadPlaylistsForCurrentUser();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnFindSongs_Click(object sender, EventArgs e)

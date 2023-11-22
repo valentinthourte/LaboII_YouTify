@@ -19,11 +19,12 @@ namespace Tests
 
             // Act
 
-            await PlaylistRepository.CreatePlaylist(playlist, EjercicioIntegrador2_YouTify.Enums.EPlatform.Spotify);
-            var playlists = await PlaylistRepository.GetPlaylists(user, EjercicioIntegrador2_YouTify.Enums.EPlatform.Spotify);
+            await PlaylistRepository.CreatePlaylist(playlist, EPlatform.Spotify);
+            var playlists = await PlaylistRepository.GetPlaylists(user, EPlatform.Spotify);
 
             // Assert
-            Assert.IsTrue(playlists.Count > 0);
+            //Assert.IsTrue(playlists.Count > 0);
+            Assert.IsTrue(1 == 2);
         }
 
         [TestMethod]
@@ -35,8 +36,8 @@ namespace Tests
 
             // Act
 
-            await PlaylistRepository.CreatePlaylist(playlist, EjercicioIntegrador2_YouTify.Enums.EPlatform.Youtube);
-            var playlists = await PlaylistRepository.GetPlaylists(user, EjercicioIntegrador2_YouTify.Enums.EPlatform.Youtube);
+            await PlaylistRepository.CreatePlaylist(playlist, EPlatform.Youtube);
+            var playlists = await PlaylistRepository.GetPlaylists(user, EPlatform.Youtube);
 
             // Assert
             Assert.IsTrue(playlists.Count > 0);
@@ -50,7 +51,19 @@ namespace Tests
             Playlist playlist = new Playlist("1", "playlist1", "", user);
 
             // Act
-            await PlaylistRepository.CreatePlaylist(playlist, EjercicioIntegrador2_YouTify.Enums.EPlatform.Youtube);
+            await PlaylistRepository.CreatePlaylist(playlist, EPlatform.Youtube);
+
+            // Assert
+            await Assert.ThrowsExceptionAsync<EDatabaseInsertError>(async () => await PlaylistRepository.CreatePlaylist(playlist, EPlatform.Youtube));
+        }
+        public async void Test_DuplicateSpotifyPlaylists_Error()
+        {
+            // Arrange
+            User user = new User("testUser");
+            Playlist playlist = new Playlist("1", "playlist1", "", user);
+
+            // Act
+            await PlaylistRepository.CreatePlaylist(playlist, EPlatform.Spotify);
 
             // Assert
             await Assert.ThrowsExceptionAsync<EDatabaseInsertError>(async () => await PlaylistRepository.CreatePlaylist(playlist, EPlatform.Spotify));
